@@ -1,0 +1,16 @@
+[
+  {
+    "name": "getHotCuicine",
+    "value": {
+      "$url": "getHot",
+      "pageNum": 1,
+      "count": 20
+    }
+  },
+  {
+    "name": "getTypeCuicine",
+    "value": {
+      "$url": "getType"
+    }
+  }
+]

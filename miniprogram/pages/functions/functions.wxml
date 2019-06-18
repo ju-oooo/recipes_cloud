@@ -1,0 +1,10 @@
+<!--pages/function/function.wxml-->
+
+<view>首页</view>
+<button bindtap='getIndexCuisine'>第一次加载</button>
+<view>类型列表</view>
+<button bindtap='getHotTypeCuisine'>第一次加载</button>
+<view>收藏列表</view>
+<button bindtap=''>下拉刷新</button>
+<button bindtap=''>第一次加载</button>
+<button bindtap=''>上滑加载更多</button>

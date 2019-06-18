@@ -1,0 +1,15 @@
+{
+  "pages": [
+    "pages/welcome/welcome",
+    "pages/functions/functions"
+  ],
+  "window": {
+    "backgroundColor": "#fff",
+    "backgroundTextStyle": "dark",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "减肥食谱",
+    "navigationBarTextStyle": "black",
+    "onReachBottomDistance": 50
+  },
+  "sitemapLocation": "sitemap.json"
+}
