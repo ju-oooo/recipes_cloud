@@ -41,5 +41,5 @@ page {
   color: #fff;
   font-size: 60rpx;
   text-align: center;
-  font-family: 方正舒体, 楷体;
+  font-family: 方正舒体, 仿宋, 楷体;
 }

@@ -1,25 +1,34 @@
-// pages/welcome/welcome.js
-const app = getApp();
+// pages/classify/classify.js
 Page({
-  _into: function() {
-    wx.switchTab({
-      url: '../board/board'
-    });
-  },
-
-  /**
-   * 页面的初始数据
-   */
   data: {
-    welcomeUrl: 'cloud://recipes.7265-recipes-1258010274/image/index/welcome.jpg',
-    counter: 3
+    classifyList: {}
   },
-
+  // 根据类型获取热门菜品
+  _getHotTypeCuisine: function() {
+    wx.cloud.callFunction({
+      name: 'cuisine',
+      data: {
+        $url: 'getType',
+        pageNum: this.data.pageNum,
+        count: this.data.count
+      }
+    }).then(res => {
+      let data = res.result.data;
+      data.forEach((elem, index) => {
+        data[index].img_url = `cloud://recipes.7265-recipes-1258010274/image/cuisine/image-${elem.img_url}.jpg`;
+      });
+      this.setData({
+        classifyList: data
+      });
+    }).catch(err => {
+      console.log('根据类型获取热门菜品', err)
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-
+    this._getHotTypeCuisine()
   },
 
   /**
@@ -27,20 +36,14 @@ Page({
    */
   onReady: function() {
 
-    setInterval(() => {
-      this.setData({
-        counter: this.data.counter - 1
-      });
-      if (!this.data.counter) {
-        this._into();
-      }
-    }, 1000);
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function() {},
+  onShow: function() {
+
+  },
 
   /**
    * 生命周期函数--监听页面隐藏

@@ -1,10 +1,18 @@
 <!--pages/function/function.wxml-->
 
-<view>首页</view>
-<button bindtap='getIndexCuisine'>第一次加载</button>
-<view>类型列表</view>
-<button bindtap='getHotTypeCuisine'>第一次加载</button>
-<view>收藏列表</view>
-<button bindtap=''>下拉刷新</button>
-<button bindtap=''>第一次加载</button>
-<button bindtap=''>上滑加载更多</button>
+<view>首页模块</view>
+<button bindtap='getIndexCuisine'>获取时间判断距离吃饭时间 推荐菜品</button>
+<view>类型模块</view>
+<button bindtap='getHotTypeCuisine'>获取类型并获取最热菜品图</button>
+<view>收藏模块</view>
+<button bindtap='addCollect'>添加收藏</button>
+<button bindtap='selectCollect'>查询收藏</button>
+<button bindtap='reomveCollect'>删除收藏</button>
+<view>用户模块</view>
+<button>进入时提示用户授权，若未授权则部分功能禁用</button>
+<!-- 用户 openid -->
+<view class="userinfo">
+  <button open-type="getUserInfo" bindgetuserinfo="onGetUserInfo" class="userinfo-avatar" style="background-image: url({{avatarUrl}})"></button>
+  <view>
+  </view>
+</view>

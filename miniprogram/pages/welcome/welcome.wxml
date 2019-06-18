@@ -1,7 +1,7 @@
 <!--pages/welcome/welcome.wxml-->
 <view class='container'>
   <view bindtap='_into' class='skip'>跳 过</view>
-  <image class='image-info' mode='aspectFill' src='cloud://recipes.7265-recipes-1258010274/image/index/welcome.jpg'></image>
+  <image class='image-info' mode='aspectFill' src='{{welcomeUrl}}'></image>
   <view class='con-title'>
     <text class='title'>减肥食谱</text>
   </view>

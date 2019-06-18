@@ -1,7 +1,8 @@
 {
   "pages": [
-    "pages/welcome/welcome",
-    "pages/functions/functions"
+    "pages/classify/classify",
+    "pages/functions/functions",
+    "pages/welcome/welcome"
   ],
   "window": {
     "backgroundColor": "#fff",

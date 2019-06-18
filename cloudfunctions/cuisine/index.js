@@ -15,8 +15,8 @@ exports.main = async(event, context) => {
   });
   // 获取热门菜品 升序
   app.router('getHot', async(ctx, next) => {
-    let params = ctx._req.event;
     try {
+      let params = ctx._req.event;
       ctx.body = await db.collection('cuisine')
         .skip((params.pageNum - 1) * params.count)
         .limit(params.count)
@@ -26,11 +26,11 @@ exports.main = async(event, context) => {
       ctx.body = null
     }
   });
-  // 获取热门类型及菜品id
+  // 获取类型并获取最热菜品图
   app.router('getType', async(ctx, next) => {
     try {
       let images = [];
-      let typeList = await db.collection('cuisine_type').get()
+      let typeList = await db.collection('cuisine_type').get();
       for (let index in typeList.data) {
         let temp = await db.collection('cuisine')
           .where({

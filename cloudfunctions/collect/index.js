@@ -16,9 +16,9 @@ exports.main = async(event, context) => {
   // 添加进收藏
   app.router('getHot', async(ctx, next) => {
     try {
-      ctx.body = await db.collection('cuisine')
+      ctx.body = await db.collection('collect')
         .add({
-
+          data: ctx._req.event.data
         })
     } catch (e) {
       ctx.body = null
@@ -27,10 +27,11 @@ exports.main = async(event, context) => {
   // 查询收藏菜品列表 根据用户id
   app.router('get', async(ctx, next) => {
     try {
-      ctx.body = await db.collection('cuisine')
-        .skip(0)
-        .limit(10)
-        .orderBy('like_number', 'desc')
+      ctx.body = await db.collection('collect')
+        .where({
+          user_id: ctx._req.event.user_id
+        })
+        .orderBy('time', 'desc')
         .get()
     } catch (e) {
       ctx.body = null
@@ -39,11 +40,9 @@ exports.main = async(event, context) => {
   // 删除收藏 根据_id
   app.router('get', async(ctx, next) => {
     try {
-      ctx.body = await db.collection('cuisine')
-        .skip(0)
-        .limit(10)
-        .orderBy('like_number', 'desc')
-        .get()
+      ctx.body = await db.collection('collect')
+        .doc(ctx._req.event.id)
+        .remove()
     } catch (e) {
       ctx.body = null
     }
