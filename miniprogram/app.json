@@ -1,6 +1,9 @@
 {
   "pages": [
+    "pages/index/index",
     "pages/classify/classify",
+    "pages/regarding/regarding",
+    "pages/copyright/copyright",
     "pages/functions/functions",
     "pages/welcome/welcome"
   ],

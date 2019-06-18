@@ -1,0 +1,11 @@
+<view class='copyright'>
+  <view class='copyright_first'>
+    本应用的发展离不开用户的支持和帮助，我们诚挚的邀请广大用户踊跃投稿。
+  </view>
+  <view class='copyright_second'>
+    <text>声明</text>
+    <text>本应用所有内容均为用户提供，属于个人行为，不代表本应用立场，本应用不因此而承担任法律责任。</text>
+    <text>各位用户提供的内容，请勿侵犯他人的知识产权及相关去权利。</text>
+    <text>本应用对任何违反中华人民共和国有关知识产权的法律法规的行为，如果广大用户发现用户提供的内容有侵犯他人权利的情形，请通过邮箱告知我们。</text>
+  </view>
+</view>

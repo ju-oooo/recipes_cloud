@@ -1,0 +1,48 @@
+.recipes-search {
+  height: 70rpx;
+  width: 90%;
+  background-color: #f7f7f7;
+  border-radius: 30rpx;
+  font-size: 30rpx;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.search-icon {
+  position: relative;
+  display: inline-block;
+  line-height: 100rpx;
+}
+
+.search-input {
+  position: relative;
+  padding: 0 20rpx;
+  display: inline-block;
+  line-height: 100rpx;
+}
+
+.recipes-recommend {
+  display: flex;
+  justify-content: space-between;
+  padding: 30rpx;
+}
+
+.recipes-classify :first-child {
+  width: 10rpx;
+  height: 40rpx;
+  background-color: #b42b79;
+  display: inline-block;
+  margin-right: 10rpx;
+}
+
+.recipes-classify :nth-child(2) {
+  font-size: 35rpx;
+}
+
+.recipes-details {
+  display: flex;
+}
+
+cuisine_choice {
+  margin-bottom: 20rpx;
+}

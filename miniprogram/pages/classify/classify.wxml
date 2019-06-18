@@ -1,7 +1,7 @@
 <!--pages/classify/classify.wxml-->
 
 <block wx:for="{{classifyList}}" wx:for-item="classify" wx:key="{{index}}">
-  <view class="dishes" data-classify_id='{{classify._id}}'>
+  <view class="dishes" data-classify_id='{{classify._id}}' bindtap='_toRecipesList'>
     <image class="dishes-img" src="{{classify.img_url}}"></image>
     <view class="dishes-title">
       <text>{{classify.title}}</text>

@@ -1,0 +1,26 @@
+/* pages/regarding/regarding.wxss */
+.regarding_middle,.regarding_bottom{
+  display: flex;
+  flex-direction: column;
+  width: 750rpx;
+  text-align: center;
+  font-size: 28rpx;
+}
+.regarding_middle>image{
+  width: 250rpx;
+  height: 250rpx;
+  margin: 0 auto;
+}
+.regarding_middle{
+  /* margin-top: 210rpx; */
+  position: absolute;
+  top:200rpx;
+  color: #888;
+}
+.regarding_bottom{
+  width: 750rpx;
+  text-align: center;
+  position: absolute;
+  bottom:100rpx;
+  color: #888;
+}

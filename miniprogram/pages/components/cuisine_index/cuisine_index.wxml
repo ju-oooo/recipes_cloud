@@ -1,0 +1,5 @@
+<view class="recipes-pic">
+      <image src="cloud://recipes.7265-recipes/image/cuisine/image-1081.jpg"></image>
+      <view style=" white-space: nowrap;   overflow: hidden;text-overflow: ellipsis;">edgedgegtreduagedsefedfgedgedgedfwesfgw</view>
+</view>
+   

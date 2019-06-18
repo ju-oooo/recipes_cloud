@@ -8,9 +8,7 @@ Page({
     wx.cloud.callFunction({
       name: 'cuisine',
       data: {
-        $url: 'getType',
-        pageNum: this.data.pageNum,
-        count: this.data.count
+        $url: 'getType'
       }
     }).then(res => {
       let data = res.result.data;
@@ -20,10 +18,22 @@ Page({
       this.setData({
         classifyList: data
       });
+      console.log('类型数据', data)
     }).catch(err => {
-      console.log('根据类型获取热门菜品', err)
+      console.log('类型数据', err)
     })
   },
+  // 跳转到列表页
+  _toRecipesList: function(e) {
+    let classify_id = e.currentTarget.dataset.classify_id;
+    wx.navigateTo({
+      url: '/pages/recipesList/recipesList',
+      data: {
+        classify_id: classify_id
+      }
+    })
+  },
+
   /**
    * 生命周期函数--监听页面加载
    */
@@ -63,7 +73,7 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function() {
-
+    this._getHotTypeCuisine();
   },
 
   /**

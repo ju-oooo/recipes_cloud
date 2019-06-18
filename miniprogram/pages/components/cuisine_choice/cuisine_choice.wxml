@@ -1,0 +1,4 @@
+<view class="choice">
+   <image class='choice-img' src="cloud://recipes.7265-recipes/image/cuisine/image-1082.jpg"></image>
+   <text class='choice-title'>家常菜</text>
+</view>

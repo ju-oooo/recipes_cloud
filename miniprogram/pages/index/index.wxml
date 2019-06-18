@@ -1,0 +1,25 @@
+<view class='recipes-search'>
+  <input class="search-input" type="text" placeholder='搜索菜谱'></input>
+  <icon class="search-icon" type="search" size="16"></icon>
+</view>
+<view class="recipes-recommend">
+  <text class="recipes-classify">
+    <text></text>
+    <text>一日三餐·晚餐</text>
+    </text>
+  <text style="color:#999;font-size:32rpx;">查看更多 ></text>
+</view>
+<view class="recipes-details">
+  <cuisine_index style="width:50%;"></cuisine_index>
+  <cuisine_index style="width:50%;"></cuisine_index>
+</view>
+<view class="recipes-recommend">
+  <text class="recipes-classify">
+    <text></text>
+    <text>精选专辑</text>
+    </text>
+  <text style="color:#999;font-size:32rpx;">查看更多 ></text>
+</view>
+<view class="recipes-choice">
+  <cuisine_choice></cuisine_choice>
+</view>
