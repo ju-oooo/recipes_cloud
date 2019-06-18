@@ -1,48 +1,81 @@
 .recipes-search {
+  margin: auto;
   height: 70rpx;
   width: 90%;
   background-color: #f7f7f7;
-  border-radius: 30rpx;
+  border-radius: 12rpx;
   font-size: 30rpx;
   display: flex;
   justify-content: flex-start;
 }
 
 .search-icon {
-  position: relative;
-  display: inline-block;
   line-height: 100rpx;
+  padding: 0 30rpx;
 }
 
 .search-input {
-  position: relative;
-  padding: 0 20rpx;
-  display: inline-block;
+  width: 550rpx;
+  height: 70rpx;
   line-height: 100rpx;
+  padding-left: 40rpx;
 }
 
 .recipes-recommend {
-  display: flex;
-  justify-content: space-between;
-  padding: 30rpx;
-}
-
-.recipes-classify :first-child {
-  width: 10rpx;
+  width: 90%;
+  margin: 30rpx auto;
   height: 40rpx;
-  background-color: #b42b79;
-  display: inline-block;
-  margin-right: 10rpx;
 }
 
-.recipes-classify :nth-child(2) {
-  font-size: 35rpx;
+.recommend-embellish {
+  width: 10rpx;
+  height: 30rpx;
+  line-height: 30rpx;
+  background-color: #b42b79;
+  margin-right: 10rpx;
+  float: left;
+}
+
+.recommend-title {
+  float: left;
+  line-height: 30rpx;
+  height: 30rpx;
+  font-size: 32rpx;
+  color: #000;
+}
+
+.recommend-more {
+  float: right;
+  line-height: 30rpx;
+  height: 30rpx;
+  color: #999;
+  font-size: 32rpx;
 }
 
 .recipes-details {
+  width: 95%;
+  margin: auto;
   display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
 }
 
-cuisine_choice {
-  margin-bottom: 20rpx;
+.details-item {
+  width: 50%;
+  box-sizing: border-box;
+  padding: 10rpx;
+}
+
+.recipes-choice {
+  width: 95%;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.choice-item {
+  margin-bottom: 30rpx;
+  box-sizing: border-box;
+  padding: 10rpx;
 }

@@ -1,6 +1,6 @@
 {
   "usingComponents": {
-    "cuisine_index": "../components/cuisine_index/cuisine_index",
+    "cuisine_recommend": "../components/cuisine_recommend/cuisine_recommend",
     "cuisine_choice": "../components/cuisine_choice/cuisine_choice"
   },
   "enablePullDownRefresh": true

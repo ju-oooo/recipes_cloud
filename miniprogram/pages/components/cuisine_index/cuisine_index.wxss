@@ -1,9 +1,0 @@
-.recipes-pic image{
-  width:90%;
-  height:260rpx;
-  border-radius: 10rpx;
-  margin-left:20rpx;
-}
-.recipes-pic :first-child{
-  margin-right:9rpx; 
-}

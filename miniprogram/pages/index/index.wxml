@@ -3,23 +3,21 @@
   <icon class="search-icon" type="search" size="16"></icon>
 </view>
 <view class="recipes-recommend">
-  <text class="recipes-classify">
-    <text></text>
-    <text>一日三餐·晚餐</text>
-    </text>
-  <text style="color:#999;font-size:32rpx;">查看更多 ></text>
+  <text class='recommend-embellish'></text>
+  <text class='recommend-title'>一日三餐·晚餐</text>
+  <text class='recommend-more'>查看更多 ></text>
 </view>
 <view class="recipes-details">
-  <cuisine_index style="width:50%;"></cuisine_index>
-  <cuisine_index style="width:50%;"></cuisine_index>
+  <cuisine_recommend class='details-item'></cuisine_recommend>
+  <cuisine_recommend class='details-item'></cuisine_recommend>
 </view>
 <view class="recipes-recommend">
-  <text class="recipes-classify">
-    <text></text>
-    <text>精选专辑</text>
-    </text>
-  <text style="color:#999;font-size:32rpx;">查看更多 ></text>
+  <text class='recommend-embellish'></text>
+  <text class='recommend-title'>热门菜品</text>
+  <text class='recommend-more'>查看更多 ></text>
 </view>
 <view class="recipes-choice">
-  <cuisine_choice></cuisine_choice>
+  <block wx:for="{{cuisineList}}" wx:for-item="cuisine" wx:key="{{index}}">
+    <cuisine_choice class='choice-item' cuisine="{{cuisine}}"></cuisine_choice>
+  </block>
 </view>
