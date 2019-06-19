@@ -3,23 +3,25 @@
 /*菜品类型总区域*/
 
 page {
-  width: 100%;
+  margin: auto;
+  width: 95%;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  margin-left: 10rpx;
 }
 
 /*菜品内容 */
 
 .dishes {
-  margin: 20rpx 20rpx 0 0;
-  width: 330rpx;
-  height: 250rpx;
+  float: left;
+  margin: 1%;
   box-sizing: border-box;
+  width: 48%;
+  height: 250rpx;
   border-radius: 12rpx;
   overflow: hidden;
   position: relative;
+  box-shadow: 0px 3px 5px 1px #f0f0f0;
 }
 
 /*菜品图片 */
@@ -28,9 +30,8 @@ page {
   position: absolute;
   top: 0;
   left: 0;
-  object-fit: cover;
-  height: 300rpx;
-  width: 100%;
+  border-radius: 10rpx;
+  height: 260rpx;
 }
 
 /* 说明 */

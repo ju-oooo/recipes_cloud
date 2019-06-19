@@ -1,6 +1,5 @@
 <!--pages/opinion/opinion.wxml-->
-<!-- <text>pages/opinion/opinion.wxml</text> -->
-<textarea class='opinion_place' placeholder="亲，用的不爽就来说两句呗，每条反馈我们都会很认真阅读" bindinput='onPlace' value='{{place_content}}'></textarea>
+<textarea class='opinion_place' placeholder="亲，用的不爽就来说两句呗，每条反馈我们都会很认真阅读哦" bindinput='onPlace' value='{{place_content}}'></textarea>
 
 <textarea class='opinion_contact' placeholder="联系方式(微信)" bindinput='onContact' value='{{contact_content}}'></textarea>
 <button class='opinion_hand' bindtap='opinion_hand'>提交</button>

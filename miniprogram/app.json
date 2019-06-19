@@ -2,9 +2,11 @@
   "pages": [
     "pages/index/index",
     "pages/classify/classify",
+    "pages/collection/collection",
     "pages/regarding/regarding",
     "pages/copyright/copyright",
     "pages/functions/functions",
+    "pages/personal/personal",
     "pages/welcome/welcome"
   ],
   "window": {
@@ -14,6 +16,36 @@
     "navigationBarTitleText": "减肥食谱",
     "navigationBarTextStyle": "black",
     "onReachBottomDistance": 50
+  },
+  "tabBar": {
+    "color": "#000000",
+    "selectedColor": "#87DE47",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页",
+        "iconPath": "images/zhuye.png",
+        "selectedIconPath": "images/zhuye_o.png"
+      },
+      {
+        "pagePath": "pages/classify/classify",
+        "text": "分类",
+        "iconPath": "images/fenlei.png",
+        "selectedIconPath": "images/fenlei_o.png"
+      },
+      {
+        "pagePath": "pages/collection/collection",
+        "text": "收藏",
+        "iconPath": "images/shoucangjia.png",
+        "selectedIconPath": "images/shoucangjia_o.png"
+      },
+      {
+        "pagePath": "pages/personal/personal",
+        "text": "我的",
+        "iconPath": "images/wode.png",
+        "selectedIconPath": "images/wode_o.png"
+      }
+    ]
   },
   "sitemapLocation": "sitemap.json"
 }

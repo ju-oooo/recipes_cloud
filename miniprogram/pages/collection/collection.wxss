@@ -1,0 +1,15 @@
+.collection-list {
+  width: 100%;
+  column-count: 2;
+  margin: 0 auto;
+  column-gap: 10rpx;
+}
+
+
+.none {
+  display: block;
+  margin: 50% auto;
+  letter-spacing: 2rpx;
+  text-align: center;
+  font-size: 30rpx;
+}

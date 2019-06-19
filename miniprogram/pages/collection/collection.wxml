@@ -1,0 +1,7 @@
+<view class='collection-list'>
+  <view wx:if="{{recipesList !== null}}">
+    <block wx:for="{{recipesList}}" wx:for-item="recipes" wx:key="index">
+      <cuisine index="{{index}}" recipes="{{recipes}}"></cuisine>
+    </block>
+  </view>
+</view>

@@ -14,7 +14,6 @@
 <view class="recipes-recommend">
   <text class='recommend-embellish'></text>
   <text class='recommend-title'>热门菜品</text>
-  <text class='recommend-more'>查看更多 ></text>
 </view>
 <view class="recipes-choice">
   <block wx:for="{{cuisineList}}" wx:for-item="cuisine" wx:key="{{index}}">
