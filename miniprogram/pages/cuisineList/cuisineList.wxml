@@ -3,4 +3,3 @@
     <cuisine_item index="{{index}}" cuisine="{{cuisine}}" data-cuisine_id='{{cuisine._id}}' bindtap='_toCuisineDetail'></cuisine_item>
   </block>
 </view>
-<van-toast id="van-toast" />

@@ -1,24 +1,18 @@
-<view>
-  <view wx:if="{{index==0}}" class="cuisine">
-    <navigator url="../details/details?id={{cuisine.id}}">
-      <view class="food">
-        <image lazy-load='true' mode='aspectFill' class="image-info-o" src="{{cuisine.img_url}}"></image>
-        <view class="cuisine-head">
-          <text class="cuisine-title">{{cuisine.title}}</text>
-          <text class="sub-title">{{cuisine.description}}</text>
-        </view>
-      </view>
-    </navigator>
+<view wx:if="{{index==0}}" class="cuisine">
+  <view class="food">
+    <image lazy-load='true' mode='aspectFill' class="image-info-o" src="{{cuisine.img_url}}"></image>
+    <view class="cuisine-head">
+      <text class="cuisine-title">{{cuisine.title}}</text>
+      <text class="sub-title">{{cuisine.description}}</text>
+    </view>
   </view>
-  <view wx:else class="cuisine">
-    <navigator url="../details/details?id={{cuisine.id}}">
-      <view class="food">
-        <image lazy-load='true' mode='aspectFill' class="image-info" src="{{cuisine.img_url}}"></image>
-        <view class="cuisine-head">
-          <text class="cuisine-title">{{cuisine.title}}</text>
-          <text class="sub-title">{{cuisine.description}}</text>
-        </view>
-      </view>
-    </navigator>
+</view>
+<view wx:else class="cuisine">
+  <view class="food">
+    <image lazy-load='true' mode='aspectFill' class="image-info" src="{{cuisine.img_url}}"></image>
+    <view class="cuisine-head">
+      <text class="cuisine-title">{{cuisine.title}}</text>
+      <text class="sub-title">{{cuisine.description}}</text>
+    </view>
   </view>
 </view>

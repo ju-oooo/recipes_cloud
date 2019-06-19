@@ -21,4 +21,3 @@
     <cuisine_choice class='choice-item' data-cuisine_id='{{cuisine._id}}' bindtap='_toCuisineDetail' cuisine="{{cuisine}}"></cuisine_choice>
   </block>
 </view>
-<van-toast id="van-toast" />

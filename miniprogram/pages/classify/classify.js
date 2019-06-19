@@ -1,17 +1,15 @@
 // pages/classify/classify.js
-import Toast from '/vant-weapp/toast/toast';
+
 Page({
   data: {
     classifyList: null
   },
   // 根据类型获取热门菜品
   _getHotTypeCuisine: function() {
-    Toast.loading({
-      duration: 0, // 持续展示 toast
-      forbidClick: true, // 禁用背景点击
-      mask: true,
-      message: '加载中...'
-    });
+    wx.showLoading({
+      mask:true,
+      title: '加载中...'
+    })
     wx.cloud.callFunction({
       name: 'cuisine',
       data: {
@@ -25,10 +23,10 @@ Page({
       this.setData({
         classifyList: data
       });
-      Toast.clear();
+      wx.hideLoading();
       console.log('类型数据', data)
     }).catch(err => {
-      Toast.clear();
+      wx.hideLoading();
       console.log('类型数据', err)
     })
   },

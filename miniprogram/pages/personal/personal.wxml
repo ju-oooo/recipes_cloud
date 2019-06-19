@@ -1,7 +1,6 @@
 <!--pages/personal/personal.wxml-->
 <view class='personal'>
   <view class='personal-info'>
-    <!-- <navigator wx:if="{{userInfo === null}}" url="../login/login" class='btn-login'>立即登录</navigator> -->
     <button wx:if="{{userInfo === null}}" open-type="getUserInfo" bindgetuserinfo="onGetUserInfo" class='btn-login'>立即登录</button>
     <view wx:else class='info'>
       <image src='{{userInfo.avatarUrl}}'></image>
@@ -15,11 +14,11 @@
   </view>
 
   <view class='personal-other'>
-    <navigator url="../copyright/copyright">
-      <text class='personal-item'>版权声明</text>
-    </navigator>
     <navigator url="../opinion/opinion">
       <text bindtap='_more' class='personal-item'>意见反馈</text>
+    </navigator>
+    <navigator url="../copyright/copyright">
+      <text class='personal-item'>版权声明</text>
     </navigator>
     <navigator url="../regarding/regarding">
       <text bindtap='_more' class='personal-item'>关于我们</text>

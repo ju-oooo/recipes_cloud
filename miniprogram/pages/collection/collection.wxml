@@ -7,4 +7,3 @@
   <image class='none-img' src='cloud://recipes.7265-recipes/image/index/zanwushuju.png'></image>
   <text class='none-title'>暂无数据</text>
 </view>
-<van-toast id="van-toast" />

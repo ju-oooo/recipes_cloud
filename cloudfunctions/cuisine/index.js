@@ -17,20 +17,22 @@ exports.main = async(event, context) => {
 
   // 根据搜索内容 获取菜品列表
   app.router('search', async(ctx, next) => {
-    // try {
-    let params = ctx._req.event;
-    ctx.body = await db.collection('cuisine')
-      .where({
-        regexp: params.kw,
-        options: 'i',
-      })
-      .orderBy('like_number', 'desc')
-      .skip((params.pageNum - 1) * params.count)
-      .limit(params.count)
-      .get();
-    // } catch (e) {
-    //   ctx.body = null
-    // }
+    try {
+      let params = ctx._req.event;
+      ctx.body = await db.collection('cuisine')
+        .where({
+          description: db.RegExp({
+            regexp: params.kw,
+            options: 'i',
+          })
+        })
+        .orderBy('like_number', 'desc')
+        .skip((params.pageNum - 1) * params.count)
+        .limit(params.count)
+        .get();
+    } catch (e) {
+      ctx.body = null
+    }
   });
   // 根据id 获取菜品详情
   app.router('getDeatil', async(ctx, next) => {

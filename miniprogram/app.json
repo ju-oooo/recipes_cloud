@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/welcome/welcome",
     "pages/index/index",
     "pages/classify/classify",
     "pages/collection/collection",
@@ -8,7 +9,6 @@
     "pages/cuisineDetail/cuisineDetail",
     "pages/personal/personal",
     "pages/cuisineList/cuisineList",
-    "pages/welcome/welcome",
     "pages/searchList/searchList"
   ],
   "window": {
@@ -17,7 +17,6 @@
     "navigationBarBackgroundColor": "#fff",
     "navigationBarTitleText": "减肥食谱",
     "navigationBarTextStyle": "black",
-    "enablePullDownRefresh": true,
     "onReachBottomDistance": 50
   },
   "tabBar": {

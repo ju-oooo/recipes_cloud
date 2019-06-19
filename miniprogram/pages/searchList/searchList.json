@@ -1,5 +1,5 @@
 {
   "usingComponents": {
-    "van-toast": "/vant-weapp/toast/index"
+    "cuisine_item": "../components/cuisine_item/cuisine_item"
   }
 }

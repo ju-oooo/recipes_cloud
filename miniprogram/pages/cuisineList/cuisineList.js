@@ -1,5 +1,4 @@
 // pages/cuisineTypeList/cuisineTypeList.js
-import Toast from '/vant-weapp/toast/toast';
 const app = getApp();
 Page({
 
@@ -10,7 +9,8 @@ Page({
     cuisineList: [],
     count: 20,
     pageNum: 1,
-    classify_id: 0
+    classify_id: 0,
+    listEnd: true
   },
 
   /**
@@ -25,12 +25,10 @@ Page({
   },
   // 获取列表页数据
   _getCuisineList: function() {
-    Toast.loading({
-      duration: 0, // 持续展示 toast
-      forbidClick: true, // 禁用背景点击
+    wx.showLoading({
       mask: true,
-      message: '加载中...'
-    });
+      title: '加载中...'
+    })
 
     wx.cloud.callFunction({
       name: 'cuisine',
@@ -46,7 +44,6 @@ Page({
         data[index].img_url = `cloud://recipes.7265-recipes-1258010274/image/cuisine/image-${elem.id}.jpg`;
       });
       let cuisineList = this.data.cuisineList;
-      let newCuisineList = [].concat(cuisineList);
       let length = cuisineList.length;
       if (length > 0) {
         data.slice(0, this.data.count / 2).forEach((elem, index) => {
@@ -56,17 +53,25 @@ Page({
           cuisineList.push(elem)
         });
       } else {
-        newCuisineList = newCuisineList.concat(data)
+        cuisineList = cuisineList.concat(data)
       }
-
+      console.log(data.length >= this.data.count)
+      if (data.length >= this.data.count) {
+        this.setData({
+          pageNum: ++this.data.pageNum
+        })
+      } else {
+        this.setData({
+          listEnd: false
+        })
+      }
       this.setData({
-        cuisineList: newCuisineList,
-        pageNum: ++this.data.pageNum
+        cuisineList: cuisineList,
       })
-      Toast.clear();
+      wx.hideLoading();
       console.log('列表页数据', data)
     }).catch(err => {
-      Toast.clear();
+      wx.hideLoading();
       console.log('列表页数据', err)
     })
   },
@@ -121,7 +126,14 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function() {
-    this._getCuisineList();
+    if (this.data.listEnd) {
+      this._getCuisineList();
+    } else {
+      wx.showToast({
+        title: '没有更多数据了',
+        icon: 'none'
+      })
+    }
   },
 
   /**

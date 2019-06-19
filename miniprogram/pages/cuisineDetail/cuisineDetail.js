@@ -1,5 +1,5 @@
 // pages/details/details.js
-import Toast from '/vant-weapp/toast/toast';
+
 const app = getApp();
 Page({
   /**
@@ -12,12 +12,10 @@ Page({
   },
   // 获取详情页数据
   _getCuisineDetails: function(cuisine_id, userId) {
-    Toast.loading({
-      duration: 0, // 持续展示 toast
-      forbidClick: true, // 禁用背景点击
+    wx.showLoading({
       mask: true,
-      message: '加载中...'
-    });
+      title: '加载中...'
+    })
     wx.cloud.callFunction({
       name: 'cuisine',
       data: {
@@ -39,10 +37,10 @@ Page({
           'star': res.result.star,
         })
       }
-      Toast.clear();
+      wx.hideLoading();
       console.log('详情页数据', details)
     }).catch(err => {
-      Toast.clear();
+      wx.hideLoading();
       console.log('详情页数据', err)
     })
   },
@@ -78,12 +76,10 @@ Page({
       message = "取消"
     }
 
-    Toast.loading({
-      duration: 0, // 持续展示 toast
-      forbidClick: true, // 禁用背景点击
+    wx.showLoading({
       mask: true,
-      message: '加载中...'
-    });
+      title: '加载中...'
+    })
     wx.cloud.callFunction({
       name: 'collect',
       data: {
@@ -94,10 +90,10 @@ Page({
       this.setData({
         'star': !this.data.star,
       })
-      Toast.clear();
+      wx.hideLoading();
       console.log(res)
     }).catch(err => {
-      Toast.clear();
+      wx.hideLoading();
       console.log(err)
     })
   },

@@ -1,41 +1,48 @@
 // pages/board/board.js
 const app = getApp();
-import Toast from '/vant-weapp/toast/toast';
+
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    cuisineList: null
+    cuisineList: [],
+    count: 20,
+    pageNum: 1,
+    listEnd: true
   },
   // 加载收藏数据
   _getCuisineList: function() {
-    Toast.loading({
-      duration: 0, // 持续展示 toast
-      forbidClick: true, // 禁用背景点击
+    wx.showLoading({
       mask: true,
-      message: '加载中...'
-    });
+      title: '加载中...'
+    })
     wx.cloud.callFunction({
       name: 'collect',
       data: {
         $url: 'get',
-        pageNum: 1,
-        count: 20
+        pageNum: this.data.pageNum,
+        count: this.data.count
       }
     }).then(res => {
       let data = res.result.collectList.data;
       data.forEach((elem, index) => {
         data[index].cuisine.img_url = `cloud://recipes.7265-recipes-1258010274/image/cuisine/image-${elem.cuisine.id}.jpg`;
       });
+      if (data.length < this.data.count) {
+        this.setData({
+          pageNum: ++this.data.pageNum,
+          listEnd: false
+        });
+      }
       this.setData({
-        cuisineList: data
+        cuisineList: this.data.cuisineList.concat(data)
       });
-      Toast.clear();
+      wx.hideLoading();
       console.log('收藏数据', data)
     }).catch(err => {
-      Toast.clear();
+      wx.hideLoading();
       console.log('收藏数据', err)
     })
   },
@@ -51,7 +58,15 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function() {
-    this._getCuisineList();
+    if (app.globalData.userInfo) {
+      this._getCuisineList();
+    } else {
+      wx.showToast({
+        title: '请登录',
+        icon: 'none'
+      })
+    }
+
   },
 
   /**
@@ -65,14 +80,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-    // if (app.globalData.userInfo) {
-    //   this._getCuisineList();
-    // } else {
-    //   wx.showToast({
-    //     title: '请登录',
-    //     icon: 'none'
-    //   })
-    // }
+
   },
 
   /**
@@ -100,7 +108,15 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function() {
-
+    if (this.data.listEnd) {
+      wx.showToast({
+        title: '没有更多数据了',
+        icon: 'none'
+      });
+      return;
+    } else {
+      this._getCuisineList();
+    }
   },
 
   /**

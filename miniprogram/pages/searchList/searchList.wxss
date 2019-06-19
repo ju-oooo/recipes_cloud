@@ -1,13 +1,13 @@
 /* miniprogram/pages/searchList/searchList.wxss */
 
 .recipes-search {
-  margin: auto;
   height: 70rpx;
   width: 90%;
   background-color: #f7f7f7;
   border-radius: 12rpx;
   font-size: 30rpx;
   display: flex;
+  margin: 20rpx auto;
   justify-content: flex-start;
 }
 

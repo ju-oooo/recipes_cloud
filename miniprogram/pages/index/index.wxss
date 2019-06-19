@@ -1,5 +1,5 @@
 .recipes-search {
-  margin: auto;
+  margin: 20rpx auto;
   height: 70rpx;
   width: 90%;
   background-color: #f7f7f7;

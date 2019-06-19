@@ -1,20 +1,19 @@
 // pages/index/index.js
-import Toast from '/vant-weapp/toast/toast';
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    cuisineList: null,
-    nowCuisineList: null,
-    nowType: null,
+    cuisineList: [],
+    nowCuisineList: [],
+    nowType: [],
     pageNum: 1,
     count: 20,
     kw: ''
   },
   // 输入监听
-  _onSearch_kw: function() {
+  _onSearch_kw: function(e) {
     this.setData({
       kw: e.detail.value
     })
@@ -38,12 +37,10 @@ Page({
   },
   // 获取当前时间 推荐类型
   _getNowTypeCuisine: function() {
-    Toast.loading({
-      duration: 0, // 持续展示 toast
-      forbidClick: true, // 禁用背景点击
+    wx.showLoading({
       mask: true,
-      message: '加载中...'
-    });
+      title: '加载中...'
+    })
 
     let recommendTypeId = this.getRecommendType();
     wx.cloud.callFunction({
@@ -64,21 +61,19 @@ Page({
         nowCuisineList: nowCuisineList,
         nowType: data.type.data[0]
       });
-      Toast.clear();
+     wx.hideLoading();
       console.log('首页推荐类型', data)
     }).catch(err => {
-      Toast.clear();
+     wx.hideLoading();
       console.log('首页推荐类型', err)
     })
   },
   //获取热门菜品
   _getHotCuisine: function() {
-    Toast.loading({
-      duration: 0, // 持续展示 toast
-      forbidClick: true, // 禁用背景点击
+    wx.showLoading({
       mask: true,
-      message: '加载中...'
-    });
+      title: '加载中...'
+    })
     wx.cloud.callFunction({
       name: 'cuisine',
       data: {
@@ -93,12 +88,12 @@ Page({
       });
       this.setData({
         pageNum: ++this.data.pageNum,
-        cuisineList: data
+        cuisineList: this.data.cuisineList.concat(data)
       });
-      Toast.clear();
+     wx.hideLoading();
       console.log('首页热门数据', data)
     }).catch(err => {
-      Toast.clear();
+     wx.hideLoading();
       console.log('首页热门数据', err)
     })
   },

@@ -1,7 +1,0 @@
-{
-  "usingComponents": {
-    "cuisine_item": "../components/cuisine_item/cuisine_item",
-    "van-toast": "/vant-weapp/toast/index"
-  },
-  "enablePullDownRefresh": true
-}
