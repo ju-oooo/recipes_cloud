@@ -1,45 +1,43 @@
-// pages/welcome/welcome.js
-const app = getApp();
-Page({
-  _into: function() {
-    wx.switchTab({
-      url: '/pages/index/index'
-    });
-  },
+Component({
 
+  properties: {
+    cuisine: { // 属性名
+      type: Object,
+      value: ''
+    },
+    index: { // 属性名
+      type: Number,
+      value: 0
+    }
+  },
   /**
    * 页面的初始数据
    */
   data: {
-    welcomeUrl: '../../images/welcome.jpg',
-    counter: 3
+
+
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-   
+    console.log(this.data)
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function() {
-    setInterval(() => {
-      this.setData({
-        counter: this.data.counter - 1
-      });
-      if (!this.data.counter) {
-        this._into();
-      }
-    }, 1000);
+
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function() {},
+  onShow: function() {
+
+  },
 
   /**
    * 生命周期函数--监听页面隐藏

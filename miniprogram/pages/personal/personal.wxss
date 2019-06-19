@@ -27,7 +27,7 @@ page {
 }
 
 .info-right {
-  padding-left: 40rpx;
+  padding-left: 30rpx;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -37,7 +37,7 @@ page {
   padding: 15rpx;
 }
 
-.info-right .logout {
+.info-right .info-country {
   font-size: 30rpx;
 }
 

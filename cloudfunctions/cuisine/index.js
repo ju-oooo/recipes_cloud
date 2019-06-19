@@ -7,62 +7,118 @@ cloud.init({
 })
 
 const db = cloud.database()
-// 获取推荐类型
-function getRecommendType() {
-  let now = new Date().getHours();
-  if (now < 10) {
-    return {
-      _id: '5cf93e0c7fb053e34441ff0f',
-      id: '10007',
-      title: '减脂-早餐'
-    } //早
-  } else if (10 < now && now < 16) {
-    return {
-      _id: '5cf93e0c7fb053e34441ff11',
-      id: '10008',
-      title: '减脂-午餐'
-    } //中
-  } else {
-    return {
-      _id: '5cf93e0c7fb053e34441ff13',
-      id: '10009',
-      title: '减脂-晚餐'
-    } //晚
-  }
-}
+
 // 云函数入口函数
 exports.main = async(event, context) => {
   const app = new TcbRouter({
     event
   });
-  // 获取热门菜品 升序
-  app.router('getHot', async(ctx, next) => {
+  const wxContext = cloud.getWXContext();
+
+  // 根据搜索内容 获取菜品列表
+  app.router('search', async(ctx, next) => {
+    // try {
+    let params = ctx._req.event;
+    ctx.body = await db.collection('cuisine')
+      .where({
+        regexp: params.kw,
+        options: 'i',
+      })
+      .orderBy('like_number', 'desc')
+      .skip((params.pageNum - 1) * params.count)
+      .limit(params.count)
+      .get();
+    // } catch (e) {
+    //   ctx.body = null
+    // }
+  });
+  // 根据id 获取菜品详情
+  app.router('getDeatil', async(ctx, next) => {
     try {
       let params = ctx._req.event;
-      ctx.body = await db.collection('cuisine')
-        .skip((params.pageNum - 1) * params.count)
-        .limit(params.count)
-        .orderBy('like_number', 'desc')
-        .get()
+      let detail = await db.collection('cuisine')
+        .where({
+          _id: params.cuisine_id
+        }).get();
+      await db.collection('cuisine')
+        .where({
+          _id: params.cuisine_id
+        }).update({
+          data: {
+            like_number: ++detail.data[0].like_number
+          }
+        });
+      let star = await db.collection('collect')
+        .where({
+          cuisine_id: params.cuisine_id,
+          appid: wxContext.OPENID
+        }).get();
+
+      ctx.body = {
+        detail: detail.data[0],
+        star: star.data.length > 0 ? true : false
+      }
     } catch (e) {
       ctx.body = null
     }
   });
 
-  // 获取当前时间 推荐类型
+  // 根据类型获取热门菜品列表 降序
+  app.router('getListByType', async(ctx, next) => {
+    try {
+      let params = ctx._req.event;
+      ctx.body = await db.collection('cuisine')
+        .where({
+          type_id: params.typeId
+        })
+        .orderBy('like_number', 'desc')
+        .skip((params.pageNum - 1) * params.count)
+        .limit(params.count)
+        .get();
+    } catch (e) {
+      ctx.body = null
+    }
+  });
+
+
+
+  // 根据当前时间 推荐类型
   app.router('getNow', async(ctx, next) => {
     try {
       let params = ctx._req.event;
-      ctx.body.type = await getRecommendType();
-      ctx.body.cuisineList = await db.collection('cuisine')
+      let type = await db.collection('cuisine_type')
         .where({
-          id: ctx.body.type.id
+          id: params.recommendTypeId
         })
+        .get();
+      let cuisineList = await db.collection('cuisine')
+        .where({
+          type_id: params.recommendTypeId
+        })
+        .orderBy('like_number', 'desc')
         .skip((params.pageNum - 1) * params.count)
         .limit(params.count)
-        .orderBy('like_number', 'desc')
         .get();
+      ctx.body = await {
+        type,
+        cuisineList
+      };
       console.log(ctx.body)
+
+    } catch (e) {
+      ctx.body = null
+    }
+  });
+
+  // 获取热门菜品 降序
+  app.router('getHot', async(ctx, next) => {
+    try {
+      let params = ctx._req.event;
+      ctx.body = await db.collection('cuisine')
+        .orderBy('like_number', 'desc')
+        .skip((params.pageNum - 1) * params.count)
+        .limit(params.count)
+        .get()
     } catch (e) {
       ctx.body = null
     }
@@ -78,9 +134,9 @@ exports.main = async(event, context) => {
           .where({
             type_id: typeList.data[index].id
           })
+          .orderBy('like_number', 'desc')
           .skip(0)
           .limit(1)
-          .orderBy('like_number', 'desc')
           .get()
         typeList.data[index]['img_url'] = temp.data[0].id
       }
@@ -89,5 +145,8 @@ exports.main = async(event, context) => {
       ctx.body = null
     }
   });
+
+
+
   return app.serve();
 }

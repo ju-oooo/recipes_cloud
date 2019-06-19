@@ -10,15 +10,22 @@ const db = cloud.database()
 
 // 云函数入口函数
 exports.main = async(event, context) => {
+
   const app = new TcbRouter({
     event
   });
+  const wxContext = cloud.getWXContext();
   // 添加进收藏
-  app.router('getHot', async(ctx, next) => {
+  app.router('add', async(ctx, next) => {
     try {
+      let params = ctx._req.event;
       ctx.body = await db.collection('collect')
         .add({
-          data: ctx._req.event.data
+          data: {
+            cuisine_id: params.cuisine_id,
+            appid: wxContext.OPENID,
+            time: new Date().getTime()
+          }
         })
     } catch (e) {
       ctx.body = null
@@ -27,21 +34,42 @@ exports.main = async(event, context) => {
   // 查询收藏菜品列表 根据用户id
   app.router('get', async(ctx, next) => {
     try {
-      ctx.body = await db.collection('collect')
+      let params = ctx._req.event;
+      let collectList = await db.collection('collect')
         .where({
-          user_id: ctx._req.event.user_id
+          appid: wxContext.OPENID
         })
         .orderBy('time', 'desc')
-        .get()
+        .skip((params.pageNum - 1) * params.count)
+        .limit(params.count)
+        .get();
+
+      for (let index in collectList.data) {
+        let temp = await db.collection('cuisine')
+          .where({
+            _id: collectList.data[index].cuisine_id
+          })
+          .get()
+
+        collectList.data[index].cuisine = await temp.data[0];
+
+      }
+      ctx.body = await {
+        collectList: collectList
+      }
     } catch (e) {
       ctx.body = null
     }
   });
   // 删除收藏 根据_id
-  app.router('get', async(ctx, next) => {
+  app.router('remove', async(ctx, next) => {
     try {
+      let params = ctx._req.event;
       ctx.body = await db.collection('collect')
-        .doc(ctx._req.event.id)
+        .where({
+          cuisine_id: params.cuisine_id,
+          appid: wxContext.OPENID
+        })
         .remove()
     } catch (e) {
       ctx.body = null

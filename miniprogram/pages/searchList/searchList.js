@@ -1,5 +1,4 @@
-// pages/board/board.js
-const app = getApp();
+// miniprogram/pages/searchList/searchList.js
 import Toast from '/vant-weapp/toast/toast';
 Page({
 
@@ -7,51 +6,59 @@ Page({
    * 页面的初始数据
    */
   data: {
+    kw: '',
+    historyKW: '',
+    pageNum: 1,
+    count: 20,
     cuisineList: null
   },
-  // 加载收藏数据
-  _getCuisineList: function() {
+
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function(options) {
+
+    this.setData({
+      kw: options.kw
+    })
+    this._search();
+
+  },
+  _search: function() {
     Toast.loading({
       duration: 0, // 持续展示 toast
       forbidClick: true, // 禁用背景点击
       mask: true,
       message: '加载中...'
     });
+    if (kw == '') {
+      this.setData({
+        kw: '*'
+      })
+    }
     wx.cloud.callFunction({
-      name: 'collect',
+      name: 'cuisine',
       data: {
-        $url: 'get',
-        pageNum: 1,
-        count: 20
+        $url: 'search',
+        kw: this.data.kw,
+        pageNum: this.data.pageNum,
+        count: this.data.count
       }
     }).then(res => {
-      let data = res.result.collectList.data;
+      let data = res.result.data;
       data.forEach((elem, index) => {
-        data[index].cuisine.img_url = `cloud://recipes.7265-recipes-1258010274/image/cuisine/image-${elem.cuisine.id}.jpg`;
+        data[index].img_url = `cloud://recipes.7265-recipes-1258010274/image/cuisine/image-${elem.id}.jpg`;
       });
       this.setData({
+        pageNum: ++this.data.pageNum,
         cuisineList: data
       });
       Toast.clear();
-      console.log('收藏数据', data)
+      console.log('搜索页数据', data)
     }).catch(err => {
       Toast.clear();
-      console.log('收藏数据', err)
+      console.log('搜索页数据', err)
     })
-  },
-  // 跳转到详情页
-  _toCuisineDetail: function(e) {
-    let cuisine_id = e.currentTarget.dataset.cuisine_id;
-    console.log(cuisine_id)
-    wx.navigateTo({
-      url: `/pages/cuisineDetail/cuisineDetail?cuisine_id=${cuisine_id}`
-    })
-  },
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function() {
-    this._getCuisineList();
   },
 
   /**
@@ -65,14 +72,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-    // if (app.globalData.userInfo) {
-    //   this._getCuisineList();
-    // } else {
-    //   wx.showToast({
-    //     title: '请登录',
-    //     icon: 'none'
-    //   })
-    // }
+
   },
 
   /**
@@ -93,7 +93,7 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function() {
-    this._getCuisineList();
+
   },
 
   /**

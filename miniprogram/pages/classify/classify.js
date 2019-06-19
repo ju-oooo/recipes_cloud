@@ -1,10 +1,17 @@
 // pages/classify/classify.js
+import Toast from '/vant-weapp/toast/toast';
 Page({
   data: {
-    classifyList: {}
+    classifyList: null
   },
   // 根据类型获取热门菜品
   _getHotTypeCuisine: function() {
+    Toast.loading({
+      duration: 0, // 持续展示 toast
+      forbidClick: true, // 禁用背景点击
+      mask: true,
+      message: '加载中...'
+    });
     wx.cloud.callFunction({
       name: 'cuisine',
       data: {
@@ -18,19 +25,19 @@ Page({
       this.setData({
         classifyList: data
       });
+      Toast.clear();
       console.log('类型数据', data)
     }).catch(err => {
+      Toast.clear();
       console.log('类型数据', err)
     })
   },
   // 跳转到列表页
-  _toRecipesList: function(e) {
+  _toCuisineList: function(e) {
     let classify_id = e.currentTarget.dataset.classify_id;
+    console.log("分类页跳转到列表页", classify_id)
     wx.navigateTo({
-      url: '/pages/recipesList/recipesList',
-      data: {
-        classify_id: classify_id
-      }
+      url: `/pages/cuisineList/cuisineList?classify_id=${classify_id}`
     })
   },
 
@@ -38,7 +45,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    this._getHotTypeCuisine()
+    this._getHotTypeCuisine();
   },
 
   /**

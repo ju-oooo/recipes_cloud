@@ -14,10 +14,10 @@ page {
 
 .dishes {
   float: left;
-  margin: 1%;
+  margin: 20rpx 10rpx;
   box-sizing: border-box;
-  width: 48%;
-  height: 250rpx;
+  width: 100%;
+  height: 380rpx;
   border-radius: 12rpx;
   overflow: hidden;
   position: relative;
@@ -31,15 +31,16 @@ page {
   top: 0;
   left: 0;
   border-radius: 10rpx;
-  height: 260rpx;
+  width: 100%;
+  height: 400rpx;
 }
 
 /* 说明 */
 
 .dishes-title {
   width: 100%;
-  height: 80rpx;
-  line-height: 80rpx;
+  height: 100rpx;
+  line-height: 100rpx;
   position: absolute;
   bottom: 0;
   background: rgba(0, 0, 0, 0.4);

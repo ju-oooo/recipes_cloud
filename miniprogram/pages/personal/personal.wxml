@@ -1,13 +1,14 @@
 <!--pages/personal/personal.wxml-->
 <view class='personal'>
   <view class='personal-info'>
-    <navigator wx:if="{{userInfo === null}}" url="../login/login" class='btn-login'>立即登录</navigator>
-    <!-- <text wx:if="{{userInfo === null}}" open-type="getUserInfo" bindtap='_login'></text> -->
+    <!-- <navigator wx:if="{{userInfo === null}}" url="../login/login" class='btn-login'>立即登录</navigator> -->
+    <button wx:if="{{userInfo === null}}" open-type="getUserInfo" bindgetuserinfo="onGetUserInfo" class='btn-login'>立即登录</button>
     <view wx:else class='info'>
-      <image src='{{url+"/image/user/"+userInfo.portrait}}'></image>
+      <image src='{{userInfo.avatarUrl}}'></image>
+      <open-data type="groupName"></open-data>
       <view class='info-right'>
-        <text>{{userInfo.nickname}}</text>
-        <text bindtap='_logout' class='logout'>注销</text>
+        <text>{{userInfo.nickName}}</text>
+        <text class='info-country'>{{userInfo.gender==1?'男':userInfo.gender==2?'女':'未知'}}</text>
       </view>
     </view>
 

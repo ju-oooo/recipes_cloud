@@ -1,45 +1,90 @@
 // pages/index/index.js
+import Toast from '/vant-weapp/toast/toast';
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    cuisineList: {},
-    nowCuisineList: {}
+    cuisineList: null,
+    nowCuisineList: null,
+    nowType: null,
+    pageNum: 1,
+    count: 20,
+    kw: ''
   },
- 
+  // 输入监听
+  _onSearch_kw: function() {
+    this.setData({
+      kw: e.detail.value
+    })
+  },
+  // 进入搜索页
+  _toSearch: function() {
+    wx.navigateTo({
+      url: `/pages/searchList/searchList?kw=${this.data.kw}`
+    })
+  },
+  // 获取推荐类型
+  getRecommendType: function() {
+    let now = new Date().getHours();
+    if (now < 10) {
+      return '10007' //早
+    } else if (10 < now && now < 16) {
+      return '10008' //中
+    } else {
+      return '10009' //晚
+    }
+  },
   // 获取当前时间 推荐类型
   _getNowTypeCuisine: function() {
+    Toast.loading({
+      duration: 0, // 持续展示 toast
+      forbidClick: true, // 禁用背景点击
+      mask: true,
+      message: '加载中...'
+    });
+
+    let recommendTypeId = this.getRecommendType();
     wx.cloud.callFunction({
       name: 'cuisine',
       data: {
         $url: 'getNow',
+        recommendTypeId: recommendTypeId,
         pageNum: 1,
-        count: 20
+        count: 2
       }
     }).then(res => {
-      console.log('首页推荐类型', res)
-      let data = res.result.data;
-      data.forEach((elem, index) => {
-        data[index].img_url = `cloud://recipes.7265-recipes-1258010274/image/cuisine/image-${elem.id}.jpg`;
+      let data = res.result;
+      let nowCuisineList = data.cuisineList.data;
+      nowCuisineList.forEach((elem, index) => {
+        nowCuisineList[index].img_url = `cloud://recipes.7265-recipes-1258010274/image/cuisine/image-${elem.id}.jpg`;
       });
       this.setData({
-        cuisineList: data
+        nowCuisineList: nowCuisineList,
+        nowType: data.type.data[0]
       });
+      Toast.clear();
       console.log('首页推荐类型', data)
     }).catch(err => {
+      Toast.clear();
       console.log('首页推荐类型', err)
     })
   },
   //获取热门菜品
   _getHotCuisine: function() {
+    Toast.loading({
+      duration: 0, // 持续展示 toast
+      forbidClick: true, // 禁用背景点击
+      mask: true,
+      message: '加载中...'
+    });
     wx.cloud.callFunction({
       name: 'cuisine',
       data: {
         $url: 'getHot',
-        pageNum: 1,
-        count: 20
+        pageNum: this.data.pageNum,
+        count: this.data.count
       }
     }).then(res => {
       let data = res.result.data;
@@ -47,21 +92,29 @@ Page({
         data[index].img_url = `cloud://recipes.7265-recipes-1258010274/image/cuisine/image-${elem.id}.jpg`;
       });
       this.setData({
+        pageNum: ++this.data.pageNum,
         cuisineList: data
       });
+      Toast.clear();
       console.log('首页热门数据', data)
     }).catch(err => {
+      Toast.clear();
       console.log('首页热门数据', err)
     })
   },
-  // 跳转到列表页
+  // 跳转到详情页
   _toCuisineDetail: function(e) {
     let cuisine_id = e.currentTarget.dataset.cuisine_id;
+    console.log(cuisine_id)
     wx.navigateTo({
-      url: '/pages/cuisineDetail/cuisineDetail',
-      data: {
-        cuisine_id: cuisine_id
-      }
+      url: `/pages/cuisineDetail/cuisineDetail?cuisine_id=${cuisine_id}`
+    })
+  },
+  // 点击查看更多
+  _toCuisineList: function() {
+    let classify_id = this.data.nowType.id;
+    wx.navigateTo({
+      url: `/pages/cuisineList/cuisineList?classify_id=${classify_id}`
     })
   },
   /**
@@ -104,6 +157,15 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function() {
+    this.setData({
+      cuisineList: null,
+      nowCuisineList: null,
+      nowType: null,
+      pageNum: 1,
+      count: 20
+    })
+    this._getNowTypeCuisine();
+    this._getHotCuisine();
 
   },
 
@@ -111,7 +173,7 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function() {
-
+    this._getHotCuisine();
   },
 
   /**

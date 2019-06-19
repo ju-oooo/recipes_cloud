@@ -12,7 +12,6 @@
   margin: 0 auto;
 }
 .regarding_middle{
-  /* margin-top: 210rpx; */
   position: absolute;
   top:200rpx;
   color: #888;

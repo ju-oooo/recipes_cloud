@@ -1,0 +1,31 @@
+/* miniprogram/pages/searchList/searchList.wxss */
+
+.recipes-search {
+  margin: auto;
+  height: 70rpx;
+  width: 90%;
+  background-color: #f7f7f7;
+  border-radius: 12rpx;
+  font-size: 30rpx;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.search-icon {
+  line-height: 100rpx;
+  padding: 0 30rpx;
+}
+
+.search-input {
+  width: 550rpx;
+  height: 70rpx;
+  line-height: 100rpx;
+  padding-left: 40rpx;
+}
+
+.cuisine-list {
+  width: 95%;
+  column-count: 2;
+  margin: 0 auto;
+  column-gap: 20rpx;
+}

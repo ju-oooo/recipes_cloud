@@ -1,7 +1,7 @@
 {
   "usingComponents": {
     "cuisine_recommend": "../components/cuisine_recommend/cuisine_recommend",
-    "cuisine_choice": "../components/cuisine_choice/cuisine_choice"
-  },
-  "enablePullDownRefresh": true
+    "cuisine_choice": "../components/cuisine_choice/cuisine_choice",
+    "van-toast": "/vant-weapp/toast/index"
+  }
 }

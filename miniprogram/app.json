@@ -5,9 +5,11 @@
     "pages/collection/collection",
     "pages/regarding/regarding",
     "pages/copyright/copyright",
-    "pages/functions/functions",
+    "pages/cuisineDetail/cuisineDetail",
     "pages/personal/personal",
-    "pages/welcome/welcome"
+    "pages/cuisineList/cuisineList",
+    "pages/welcome/welcome",
+    "pages/searchList/searchList"
   ],
   "window": {
     "backgroundColor": "#fff",
@@ -15,6 +17,7 @@
     "navigationBarBackgroundColor": "#fff",
     "navigationBarTitleText": "减肥食谱",
     "navigationBarTextStyle": "black",
+    "enablePullDownRefresh": true,
     "onReachBottomDistance": 50
   },
   "tabBar": {

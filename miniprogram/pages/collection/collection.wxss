@@ -1,15 +1,32 @@
-.collection-list {
+page {
   width: 100%;
-  column-count: 2;
-  margin: 0 auto;
-  column-gap: 10rpx;
+  height: 100%;
 }
 
+.collection-list {
+  width: 95%;
+  column-count: 2;
+  margin: 0 auto;
+  column-gap: 20rpx;
+}
 
-.none {
-  display: block;
-  margin: 50% auto;
-  letter-spacing: 2rpx;
+.collection-none {
+  margin-top: 200rpx;
+  display: flex;
+  flex-direction: column;
+}
+
+.none-img {
+  width: 400rpx;
+  height: 400rpx;
+  margin: auto;
+  border-radius: 50%;
+  box-shadow: 0px 3px 5px 1px #ccc;
+  margin-bottom: 40rpx;
+}
+
+.none-title {
+  font-size: 34rpx;
+  color: #ccc;
   text-align: center;
-  font-size: 30rpx;
 }
