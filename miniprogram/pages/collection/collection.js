@@ -2,7 +2,6 @@
 const app = getApp();
 
 Page({
-
   /**
    * 页面的初始数据
    */
@@ -14,22 +13,25 @@ Page({
   },
   // 加载收藏数据
   _getCuisineList: function() {
-    wx.showLoading({
-      mask: true,
-      title: '加载中...'
-    })
     wx.cloud.callFunction({
       name: 'collect',
       data: {
         $url: 'get',
         pageNum: this.data.pageNum,
-        count: this.data.count
+        count: this.data.count,
+        noData: false
       }
     }).then(res => {
       let data = res.result.collectList.data;
       data.forEach((elem, index) => {
         data[index].cuisine.img_url = `cloud://recipes.7265-recipes-1258010274/image/cuisine/image-${elem.cuisine.id}.jpg`;
       });
+      if (this.data.pageNum < 2) {
+        this.setData({
+          cuisineList: []
+        });
+        wx.stopPullDownRefresh();
+      }
       if (data.length < this.data.count) {
         this.setData({
           pageNum: ++this.data.pageNum,
@@ -39,10 +41,13 @@ Page({
       this.setData({
         cuisineList: this.data.cuisineList.concat(data)
       });
-      wx.hideLoading();
+      if (this.data.cuisineList.length < 1) {
+        this.setData({
+          noData: false
+        })
+      }
       console.log('收藏数据', data)
     }).catch(err => {
-      wx.hideLoading();
       console.log('收藏数据', err)
     })
   },
@@ -58,8 +63,18 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function() {
-
-
+    if (app.globalData.userInfo) {
+      this.setData({
+        pageNum: 1,
+        listEnd: true,
+      });
+      this._getCuisineList();
+    } else {
+      wx.showToast({
+        title: '请登录',
+        icon: 'none'
+      })
+    }
   },
 
   /**
@@ -73,19 +88,6 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-    if (app.globalData.userInfo) {
-      this.setData({
-        pageNum: 1,
-        listEnd: true,
-        cuisineList: []
-      });
-      this._getCuisineList();
-    } else {
-      wx.showToast({
-        title: '请登录',
-        icon: 'none'
-      })
-    }
 
   },
 
@@ -110,7 +112,6 @@ Page({
     this.setData({
       pageNum: 1,
       listEnd: true,
-      cuisineList: []
     });
     this._getCuisineList();
   },

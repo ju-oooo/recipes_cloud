@@ -17,7 +17,6 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(params) {
-    console.log("列表页面", params)
     this.setData({
       classify_id: params.classify_id
     });
@@ -25,11 +24,6 @@ Page({
   },
   // 获取列表页数据
   _getCuisineList: function() {
-    wx.showLoading({
-      mask: true,
-      title: '加载中...'
-    })
-
     wx.cloud.callFunction({
       name: 'cuisine',
       data: {
@@ -68,10 +62,10 @@ Page({
       this.setData({
         cuisineList: cuisineList,
       })
-      wx.hideLoading();
+      wx.stopPullDownRefresh();
       console.log('列表页数据', data)
     }).catch(err => {
-      wx.hideLoading();
+      wx.stopPullDownRefresh();
       console.log('列表页数据', err)
     })
   },
@@ -117,7 +111,7 @@ Page({
   onPullDownRefresh: function() {
     this.setData({
       'pageNum': 1,
-      'recipesList': []
+      'cuisineList': []
     })
     this._getCuisineList();
   },

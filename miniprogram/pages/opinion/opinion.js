@@ -20,6 +20,7 @@ Page({
     } else if (this.data.place_content.length < 1 && this.data.contact_content.length < 1) {
       wx.showToast({
         title: '请多多指教...',
+        icon:'none'
       })
     } else {
       wx.showLoading({
@@ -40,7 +41,7 @@ Page({
           contact_content: ''
         });
         wx.showToast({
-          title: '感谢您的反馈。',
+          title: '感谢您的反馈',
           icon: 'none'
         })
         console.log(res)

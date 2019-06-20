@@ -5,7 +5,7 @@
 .details-head {
   display: flex;
   flex-direction: column;
-  margin: 40rpx 20rpx;
+  margin: 40rpx 20rpx 200rpx;
 }
 
 .details-tit {

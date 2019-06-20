@@ -25,10 +25,14 @@
 
 .cuisine-list {
   width: 95%;
+  min-height: 554rpx;
   column-count: 2;
   margin: 0 auto;
   column-gap: 20rpx;
-  height: 554rpx;
+}
+
+.collection-item {
+  /* height: 554rpx; */
 }
 
 .none {

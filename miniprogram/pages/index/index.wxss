@@ -31,7 +31,7 @@
   width: 10rpx;
   height: 30rpx;
   line-height: 30rpx;
-  background-color: #5FAE1F;
+  background-color: #9FD55D;
   margin-right: 10rpx;
   float: left;
 }

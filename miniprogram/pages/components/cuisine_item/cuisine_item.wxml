@@ -1,18 +1,20 @@
-<view wx:if="{{index==0}}" class="cuisine">
-  <view class="food">
-    <image lazy-load='true' mode='aspectFill' class="image-info-o" src="{{cuisine.img_url}}"></image>
-    <view class="cuisine-head">
-      <text class="cuisine-title">{{cuisine.title}}</text>
-      <text class="sub-title">{{cuisine.description}}</text>
+<view>
+  <view wx:if="{{index==0}}" class="cuisine">
+    <view class="food">
+      <image lazy-load='true' mode='aspectFill' class="image-info-o" lazy-load src="{{cuisine.img_url}}"></image>
+      <view class="cuisine-head">
+        <text class="cuisine-title">{{cuisine.title}}</text>
+        <text class="sub-title">{{cuisine.description}}</text>
+      </view>
     </view>
   </view>
-</view>
-<view wx:else class="cuisine">
-  <view class="food">
-    <image lazy-load='true' mode='aspectFill' class="image-info" src="{{cuisine.img_url}}"></image>
-    <view class="cuisine-head">
-      <text class="cuisine-title">{{cuisine.title}}</text>
-      <text class="sub-title">{{cuisine.description}}</text>
+  <view wx:else class="cuisine">
+    <view class="food">
+      <image lazy-load='true' mode='aspectFill' class="image-info" lazy-load src="{{cuisine.img_url}}"></image>
+      <view class="cuisine-head">
+        <text class="cuisine-title">{{cuisine.title}}</text>
+        <text class="sub-title">{{cuisine.description}}</text>
+      </view>
     </view>
   </view>
 </view>

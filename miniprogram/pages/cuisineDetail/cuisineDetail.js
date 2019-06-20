@@ -12,11 +12,7 @@ Page({
   },
   // 获取详情页数据
   _getCuisineDetails: function(cuisine_id, userId) {
-    wx.showLoading({
-      mask: true,
-      title: '加载中...'
-    })
-    wx.cloud.callFunction({
+     wx.cloud.callFunction({
       name: 'cuisine',
       data: {
         $url: 'getDeatil',
@@ -37,10 +33,10 @@ Page({
           'star': res.result.star,
         })
       }
-      wx.hideLoading();
+      wx.stopPullDownRefresh();
       console.log('详情页数据', details)
     }).catch(err => {
-      wx.hideLoading();
+      wx.stopPullDownRefresh();
       console.log('详情页数据', err)
     })
   },
@@ -70,16 +66,16 @@ Page({
     let url, message;
     if (!this.data.star) {
       url = 'add';
-      message = "添加"
+      message = "收藏"
     } else {
       url = 'remove';
       message = "取消"
     }
 
-    wx.showLoading({
-      mask: true,
-      title: '加载中...'
-    })
+    // wx.showLoading({
+    //   mask: true,
+    //   title: '加载中...'
+    // })
     wx.cloud.callFunction({
       name: 'collect',
       data: {
@@ -90,10 +86,14 @@ Page({
       this.setData({
         'star': !this.data.star,
       })
-      wx.hideLoading();
+      // wx.hideLoading();
+      wx.showToast({
+        title: message+'成功',
+        icon:"none"
+      })
       console.log(res)
     }).catch(err => {
-      wx.hideLoading();
+      // wx.hideLoading();
       console.log(err)
     })
   },

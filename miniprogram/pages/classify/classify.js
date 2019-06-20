@@ -6,10 +6,6 @@ Page({
   },
   // 根据类型获取热门菜品
   _getHotTypeCuisine: function() {
-    wx.showLoading({
-      mask:true,
-      title: '加载中...'
-    })
     wx.cloud.callFunction({
       name: 'cuisine',
       data: {
@@ -23,10 +19,9 @@ Page({
       this.setData({
         classifyList: data
       });
-      wx.hideLoading();
+      wx.stopPullDownRefresh();
       console.log('类型数据', data)
     }).catch(err => {
-      wx.hideLoading();
       console.log('类型数据', err)
     })
   },

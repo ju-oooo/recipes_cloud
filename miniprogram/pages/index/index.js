@@ -37,11 +37,6 @@ Page({
   },
   // 获取当前时间 推荐类型
   _getNowTypeCuisine: function() {
-    wx.showLoading({
-      mask: true,
-      title: '加载中...'
-    })
-
     let recommendTypeId = this.getRecommendType();
     wx.cloud.callFunction({
       name: 'cuisine',
@@ -61,19 +56,16 @@ Page({
         nowCuisineList: nowCuisineList,
         nowType: data.type.data[0]
       });
-     wx.hideLoading();
+      wx.stopPullDownRefresh();
       console.log('首页推荐类型', data)
     }).catch(err => {
-     wx.hideLoading();
+      wx.stopPullDownRefresh();
       console.log('首页推荐类型', err)
     })
   },
   //获取热门菜品
   _getHotCuisine: function() {
-    wx.showLoading({
-      mask: true,
-      title: '加载中...'
-    })
+ 
     wx.cloud.callFunction({
       name: 'cuisine',
       data: {
@@ -90,10 +82,10 @@ Page({
         pageNum: ++this.data.pageNum,
         cuisineList: this.data.cuisineList.concat(data)
       });
-     wx.hideLoading();
-      console.log('首页热门数据', data)
+      wx.stopPullDownRefresh();
+      console.log('首页热门数据', data) 
     }).catch(err => {
-     wx.hideLoading();
+      wx.stopPullDownRefresh();
       console.log('首页热门数据', err)
     })
   },
@@ -118,6 +110,7 @@ Page({
   onLoad: function(options) {
     this._getNowTypeCuisine();
     this._getHotCuisine();
+    
   },
 
   /**

@@ -1,4 +1,5 @@
 {
+  "enablePullDownRefresh": false,
   "usingComponents": {
     "cuisine_item": "../components/cuisine_item/cuisine_item"
   }
