@@ -37,19 +37,19 @@ Page({
       data.forEach((elem, index) => {
         data[index].img_url = `cloud://recipes.7265-recipes-1258010274/image/cuisine/image-${elem.id}.jpg`;
       });
+      // data = this._scatter(data)
       let cuisineList = this.data.cuisineList;
       let length = cuisineList.length;
       if (length > 0) {
-        data.slice(0, this.data.count / 2).forEach((elem, index) => {
+        data.slice(0, data.length / 2).forEach((elem, index) => {
           cuisineList.splice(length / 2 + index, 0, elem)
         });
-        data.slice(this.data.count / 2).forEach((elem) => {
+        data.slice(data.length / 2).forEach((elem) => {
           cuisineList.push(elem)
         });
       } else {
         cuisineList = cuisineList.concat(data)
       }
-      console.log(data.length >= this.data.count)
       if (data.length >= this.data.count) {
         this.setData({
           pageNum: ++this.data.pageNum
@@ -68,6 +68,24 @@ Page({
       wx.stopPullDownRefresh();
       console.log('列表页数据', err)
     })
+  },
+  // 为瀑布流打散数组
+  _scatter: function(data) {
+    var newArr = new Array();
+    let odd = data.length / 2;
+    for (let index in data) {
+      let temp = data[index]
+      if (index % 2 == 0) {
+        newArr.push(temp)
+      } else {
+        newArr.splice(odd++, 0, temp);
+      }
+    }
+    // for (let index in newArr) {
+    //   console.log(123456, newArr[index].title)
+    // }
+    console.log(123456, newArr)
+    return newArr;
   },
   // 跳转到详情页
   _toCuisineDetail: function(e) {

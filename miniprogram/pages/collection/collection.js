@@ -38,12 +38,25 @@ Page({
           listEnd: false
         });
       }
+      let cuisineList = this.data.cuisineList;
+      let length = cuisineList.length;
+      if (length > 0) {
+        data.slice(0, data.length / 2).forEach((elem, index) => {
+          cuisineList.splice(length / 2 + index, 0, elem)
+        });
+        data.slice(data.length / 2).forEach((elem) => {
+          cuisineList.push(elem)
+        });
+      } else {
+        cuisineList = cuisineList.concat(data)
+      }
+
       this.setData({
-        cuisineList: this.data.cuisineList.concat(data)
+        cuisineList: cuisineList
       });
-      if (this.data.cuisineList.length < 1) {
+      if (cuisineList.length < 1) {
         this.setData({
-          noData: false
+          noData: true
         })
       }
       console.log('收藏数据', data)
