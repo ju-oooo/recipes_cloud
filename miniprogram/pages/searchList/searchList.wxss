@@ -28,6 +28,7 @@
   column-count: 2;
   margin: 0 auto;
   column-gap: 20rpx;
+  height: 554rpx;
 }
 
 .none {
