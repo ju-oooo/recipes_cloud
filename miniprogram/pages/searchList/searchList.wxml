@@ -1,10 +1,12 @@
-<!--miniprogram/pages/searchList/searchList.wxml-->
 <view class='recipes-search'>
   <input class="search-input" type="text" placeholder='搜索菜谱' bindinput='_onSearch_kw' value='{{kw}}'></input>
   <icon class="search-icon" type="search" size="16" bindtap='_search'></icon>
 </view>
-<view class='cuisine-list'>
-  <block wx:for="{{cuisineList}}" wx:for-item="cuisine" wx:key="index">
-    <cuisine_item index="{{index}}" cuisine="{{cuisine}}" data-cuisine_id='{{cuisine._id}}' bindtap='_toCuisineDetail'></cuisine_item>
-  </block>
+<view wx:if='{{cuisineList.length > 0}}'>
+  <view class='cuisine-list'>
+    <block wx:for="{{cuisineList}}" wx:for-item="cuisine" wx:key="index">
+      <cuisine_item index="{{index}}" cuisine="{{cuisine}}" data-cuisine_id='{{cuisine._id}}' bindtap='_toCuisineDetail'></cuisine_item>
+    </block>
+  </view>
 </view>
+<view wx:else class='none'>暂无数据</view>

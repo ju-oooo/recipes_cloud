@@ -29,3 +29,10 @@
   margin: 0 auto;
   column-gap: 20rpx;
 }
+
+.none {
+  color: #ccc;
+  font-size: 30rpx;
+  text-align: center;
+  margin-top: 200rpx;
+}

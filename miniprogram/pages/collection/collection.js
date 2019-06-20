@@ -58,14 +58,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function() {
-    if (app.globalData.userInfo) {
-      this._getCuisineList();
-    } else {
-      wx.showToast({
-        title: '请登录',
-        icon: 'none'
-      })
-    }
+
 
   },
 
@@ -80,6 +73,19 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
+    if (app.globalData.userInfo) {
+      this.setData({
+        pageNum: 1,
+        listEnd: true,
+        cuisineList: []
+      });
+      this._getCuisineList();
+    } else {
+      wx.showToast({
+        title: '请登录',
+        icon: 'none'
+      })
+    }
 
   },
 
@@ -101,6 +107,11 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function() {
+    this.setData({
+      pageNum: 1,
+      listEnd: true,
+      cuisineList: []
+    });
     this._getCuisineList();
   },
 

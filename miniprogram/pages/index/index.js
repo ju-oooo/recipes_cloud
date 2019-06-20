@@ -153,9 +153,9 @@ Page({
    */
   onPullDownRefresh: function() {
     this.setData({
-      cuisineList: null,
-      nowCuisineList: null,
-      nowType: null,
+      cuisineList: [],
+      nowCuisineList: [],
+      nowType: [],
       pageNum: 1,
       count: 20
     })

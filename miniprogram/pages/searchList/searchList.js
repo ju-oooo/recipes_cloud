@@ -9,7 +9,7 @@ Page({
     historyKW: '',
     pageNum: 1,
     count: 20,
-    cuisineList: null,
+    cuisineList: [],
     listEnd: true
   },
   // 沙拉
@@ -21,13 +21,18 @@ Page({
   },
   // 搜索
   _search: function() {
+    if (this.data.historyKW != this.data.kw) {
+      this.setData({
+        cuisineList: []
+      })
+    } 
     if (this.data.kw == '') {
       wx.showToast({
         title: '请输入关键词',
         icon: 'none'
       });
       return;
-    } else {
+    }else {
       wx.showLoading({
         mask: true,
         title: '加载中...'
@@ -53,7 +58,7 @@ Page({
           });
         }
         this.setData({
-          cuisineList: data
+          cuisineList: this.data.cuisineList.concat(data)
         });
         wx.hideLoading();
         console.log('搜索页数据', data)
