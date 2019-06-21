@@ -29,7 +29,7 @@ Page({
     let now = new Date().getHours();
     if (now < 10) {
       return '10007' //早
-    } else if (10 < now && now < 16) {
+    } else if (now < 16) {
       return '10008' //中
     } else {
       return '10009' //晚
@@ -38,6 +38,7 @@ Page({
   // 获取当前时间 推荐类型
   _getNowTypeCuisine: function() {
     let recommendTypeId = this.getRecommendType();
+    console.log(recommendTypeId)
     wx.cloud.callFunction({
       name: 'cuisine',
       data: {
