@@ -15,13 +15,13 @@
 
   <view class='personal-other'>
     <navigator url="../opinion/opinion">
-      <text bindtap='_more' class='personal-item'>意见反馈</text>
+      <text class='personal-item'>意见反馈</text>
     </navigator>
     <navigator url="../copyright/copyright">
       <text class='personal-item'>版权声明</text>
     </navigator>
     <navigator url="../regarding/regarding">
-      <text bindtap='_more' class='personal-item'>关于我们</text>
+      <text class='personal-item'>关于我们</text>
     </navigator>
   </view>
 </view>

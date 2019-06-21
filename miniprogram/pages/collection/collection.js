@@ -9,6 +9,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    message: "未登录哦",
     cuisineList: [],
     count: 20,
     pageNum: 1,
@@ -53,7 +54,8 @@ Page({
       // 没有数据
       if (cuisineList.length < 1) {
         this.setData({
-          noData: true
+          noData: true,
+          message: '暂无数据'
         })
       }
       console.log('收藏数据', data)
@@ -85,6 +87,10 @@ Page({
         title: '请登录',
         icon: 'none'
       })
+      this.setData({
+        noData: true,
+        message: "未登录哦"
+      });
     }
   },
 
@@ -99,7 +105,17 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-
+    if (app.globalData.userInfo) {
+      this.setData({
+        pageNum: 1,
+        listEnd: true,
+        message: "暂无数据"
+      });
+      if(this.noData){
+        this._getCuisineList();
+      }
+     
+    }
   },
 
   /**

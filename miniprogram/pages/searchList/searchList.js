@@ -32,6 +32,10 @@ Page({
         icon: 'none'
       });
       return;
+    }else{
+      this.setData({
+        cuisineList: [],
+      });
     }
     // 关键词为空时退出
     if (this.data.kw == '') {
