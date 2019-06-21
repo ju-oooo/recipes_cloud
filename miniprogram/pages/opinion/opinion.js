@@ -17,7 +17,7 @@ Page({
         icon: 'none'
       });
       return;
-    } else if (this.data.place_content.length < 1 && this.data.contact_content.length < 1) {
+    } else if (this.data.place_content.length < 1 | this.data.contact_content.length < 1) {
       wx.showToast({
         title: '请多多指教...',
         icon:'none'
