@@ -1,0 +1,23 @@
+<view class='recipes-search'>
+  <input class="search-input" type="text" placeholder='搜索菜谱' bindinput='_onSearch_kw'></input>
+  <icon class="search-icon" type="search" size="16" bindtap='_toSearch'></icon>
+</view>
+<view class="recipes-recommend">
+  <text class='recommend-embellish'></text>
+  <text class='recommend-title'>{{nowType.title}}</text>
+  <text class='recommend-more' bindtap='_toCuisineList' bindtap='_toCuisineList' value='{{kw}}'>查看更多 ></text>
+</view>
+<view class="recipes-details">
+  <block wx:for="{{nowCuisineList}}" wx:for-item="nowCuisine" wx:key="{{index}}">
+    <cuisine_recommend class='details-item' data-cuisine_id='{{nowCuisine._id}}' bindtap='_toCuisineDetail' nowCuisine="{{nowCuisine}}"></cuisine_recommend>
+  </block>
+</view>
+<view class="recipes-recommend">
+  <text class='recommend-embellish'></text>
+  <text class='recommend-title'>热门菜品</text>
+</view>
+<view class="recipes-choice">
+  <block wx:for="{{cuisineList}}" wx:for-item="cuisine" wx:key="{{index}}">
+    <cuisine_choice class='choice-item' data-cuisine_id='{{cuisine._id}}' bindtap='_toCuisineDetail' cuisine="{{cuisine}}"></cuisine_choice>
+  </block>
+</view>

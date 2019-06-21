@@ -1,0 +1,58 @@
+.image-info {
+  width: 100%;
+}
+
+.details-head {
+  display: flex;
+  flex-direction: column;
+  margin: 40rpx 20rpx 200rpx;
+}
+
+.details-tit {
+  display: flex;
+  justify-content: space-between;
+}
+
+.details-title {
+  width: 90%;
+  font-size: 40rpx;
+}
+
+.details-star {
+  width: 40rpx;
+  height: 40rpx;
+  padding: 0 10rpx;
+}
+
+.sub-title {
+  font-size: 30rpx;
+  padding-top: 20rpx;
+  color: #999;
+}
+
+.dotted {
+  width: 100%;
+  padding: 20rpx 0;
+  border-bottom: 1rpx dashed #999;
+}
+
+.material {
+  font-size: 40rpx;
+  margin: 25rpx 0;
+}
+
+.food-material {
+  font-size: 25rpx;
+  color: #666;
+  padding: 10rpx 0;
+  text-align: center;
+  letter-spacing: 2rpx;
+}
+
+.cooking-step {
+  padding: 0 10rpx;
+  font-size: 25rpx;
+  margin-bottom: 25rpx;
+  line-height: 45rpx;
+  color: #666;
+}

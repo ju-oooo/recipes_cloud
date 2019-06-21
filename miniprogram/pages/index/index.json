@@ -1,0 +1,7 @@
+{
+  "enablePullDownRefresh": true,
+  "usingComponents": {
+    "cuisine_recommend": "../components/cuisine_recommend/cuisine_recommend",
+    "cuisine_choice": "../components/cuisine_choice/cuisine_choice"
+  }
+}

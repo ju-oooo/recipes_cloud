@@ -1,0 +1,28 @@
+/* pages/opinion/opinion.wxss */
+.opinion_place{
+  display: block;
+  width: 670rpx;
+  height: 300rpx;
+  margin: 20rpx 30rpx;
+  padding: 10rpx;
+  background-color: #f5f5f5;
+  font-size: 30rpx;
+  color: #A2A3A3;
+}
+.opinion_contact{
+  display: block;
+  width: 670rpx;
+  height: 50rpx;
+  margin: 15rpx 30rpx;
+  padding: 10rpx;
+  background-color: #f5f5f5;
+  font-size: 30rpx;
+  color: #A2A3A3;
+}
+.opinion_hand{
+  height: 100rpx;
+  margin: 0 30rpx !important;
+  font-size: 38rpx;
+  color:#fff;
+  background-color: #67C401;
+}

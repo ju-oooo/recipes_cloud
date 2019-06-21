@@ -1,0 +1,27 @@
+<!--pages/personal/personal.wxml-->
+<view class='personal'>
+  <view class='personal-info'>
+    <button wx:if="{{userInfo === null}}" open-type="getUserInfo" bindgetuserinfo="onGetUserInfo" class='btn-login'>立即登录</button>
+    <view wx:else class='info'>
+      <image src='{{userInfo.avatarUrl}}'></image>
+      <open-data type="groupName"></open-data>
+      <view class='info-right'>
+        <text>{{userInfo.nickName}}</text>
+        <text class='info-country'>{{userInfo.gender==1?'男':userInfo.gender==2?'女':'未知'}}</text>
+      </view>
+    </view>
+
+  </view>
+
+  <view class='personal-other'>
+    <navigator url="../opinion/opinion">
+      <text bindtap='_more' class='personal-item'>意见反馈</text>
+    </navigator>
+    <navigator url="../copyright/copyright">
+      <text class='personal-item'>版权声明</text>
+    </navigator>
+    <navigator url="../regarding/regarding">
+      <text bindtap='_more' class='personal-item'>关于我们</text>
+    </navigator>
+  </view>
+</view>

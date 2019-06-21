@@ -1,0 +1,43 @@
+/* miniprogram/pages/searchList/searchList.wxss */
+
+.recipes-search {
+  height: 70rpx;
+  width: 90%;
+  background-color: #f7f7f7;
+  border-radius: 12rpx;
+  font-size: 30rpx;
+  display: flex;
+  margin: 20rpx auto;
+  justify-content: flex-start;
+}
+
+.search-icon {
+  line-height: 100rpx;
+  padding: 0 30rpx;
+}
+
+.search-input {
+  width: 550rpx;
+  height: 70rpx;
+  line-height: 100rpx;
+  padding-left: 40rpx;
+}
+
+.cuisine-list {
+  width: 95%;
+  min-height: 554rpx;
+  column-count: 2;
+  margin: 0 auto;
+  column-gap: 20rpx;
+}
+
+.collection-item {
+  /* height: 554rpx; */
+}
+
+.none {
+  color: #ccc;
+  font-size: 30rpx;
+  text-align: center;
+  margin-top: 200rpx;
+}

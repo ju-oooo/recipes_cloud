@@ -1,0 +1,4 @@
+<view class="choice-item">
+  <image mode='center' class='choice-item-img' src="{{cuisine.img_url}}"></image>
+  <text class='choice-item-title'>{{cuisine.title}}</text>
+</view>
