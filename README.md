@@ -1,12 +1,2 @@
-# 云开发 quickstart
-
-这是云开发的快速启动指引，其中演示了如何上手使用云开发的三大基础能力：
-
-- 数据库：一个既可在小程序前端操作，也能在云函数中读写的 JSON 文档型数据库
-- 文件存储：在小程序前端直接上传/下载云端文件，在云开发控制台可视化管理
-- 云函数：在云端运行的代码，微信私有协议天然鉴权，开发者只需编写业务逻辑代码
-
-## 参考文档
-
-- [云开发文档](https://developers.weixin.qq.com/miniprogram/dev/wxcloud/basis/getting-started.html)
-
+﻿# 减肥已经成为一种潮流，越来越多的人都关注减肥话题。盲目的节食，不如优质的减肥食谱，饮食减肥是一种天然的减肥方式，让你在不知不觉中减肥，让你更加美丽健康！
+![Image text](https://github.com/ju-oooo/imageStorage/blob/master/%E9%A3%9F%E8%B0%B1/recipes-code.png)
