@@ -72,6 +72,21 @@ Page({
       url: `/pages/cuisineDetail/cuisineDetail?cuisine_id=${cuisine_id}`
     })
   },
+  // 为瀑布流打散数组
+  _scatter: function (data) {
+    let evenArr = [];
+    let oddArr = [];
+    let temp;
+    for (let index in data) {
+      temp = data[index];
+      if (index % 2 == 0) {
+        evenArr.push(temp)
+      } else {
+        oddArr.push(temp)
+      }
+    }
+    return evenArr.concat(oddArr);
+  },
   /**
    * 生命周期函数--监听页面加载
    */
