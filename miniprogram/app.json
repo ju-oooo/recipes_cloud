@@ -9,7 +9,8 @@
     "pages/cuisineDetail/cuisineDetail",
     "pages/personal/personal",
     "pages/cuisineList/cuisineList",
-    "pages/searchList/searchList"
+    "pages/searchList/searchList",
+    "pages/components/cuisine_classify/cuisine_classify"
   ],
   "window": {
     "backgroundColor": "#fff",

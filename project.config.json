@@ -21,7 +21,7 @@
 	},
 	"appid": "wx0d52a2b5f749c65f",
 	"projectname": "recipes_cloud",
-	"libVersion": "2.4.3",
+	"libVersion": "2.5.0",
 	"simulatorType": "wechat",
 	"simulatorPluginLibVersion": {},
 	"cloudfunctionTemplateRoot": "cloudfunctionTemplate",

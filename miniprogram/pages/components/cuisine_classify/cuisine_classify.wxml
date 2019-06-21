@@ -1,0 +1,6 @@
+  <view class="dishes">
+    <image class="dishes-img" src="{{classify.img_url}}"></image>
+    <view class="dishes-title">
+      <text>{{classify.title}}</text>
+    </view>
+  </view>

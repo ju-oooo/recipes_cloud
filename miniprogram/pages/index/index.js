@@ -1,4 +1,5 @@
 // pages/index/index.js
+const app = getApp();
 Page({
 
   /**
@@ -51,7 +52,7 @@ Page({
       let data = res.result;
       let nowCuisineList = data.cuisineList.data;
       nowCuisineList.forEach((elem, index) => {
-        nowCuisineList[index].img_url = `cloud://recipes.7265-recipes-1258010274/image/cuisine/image-${elem.id}.jpg`;
+        nowCuisineList[index].img_url = `${app.imageUrl}${elem.id}.jpg`;
       });
       this.setData({
         nowCuisineList: nowCuisineList,
@@ -66,7 +67,7 @@ Page({
   },
   //获取热门菜品
   _getHotCuisine: function() {
- 
+
     wx.cloud.callFunction({
       name: 'cuisine',
       data: {
@@ -76,15 +77,16 @@ Page({
       }
     }).then(res => {
       let data = res.result.data;
+
       data.forEach((elem, index) => {
-        data[index].img_url = `cloud://recipes.7265-recipes-1258010274/image/cuisine/image-${elem.id}.jpg`;
+        data[index].img_url = `${app.imageUrl}${elem.id}.jpg`;
       });
       this.setData({
         pageNum: ++this.data.pageNum,
         cuisineList: this.data.cuisineList.concat(data)
       });
       wx.stopPullDownRefresh();
-      console.log('首页热门数据', data) 
+      console.log('首页热门数据', data)
     }).catch(err => {
       wx.stopPullDownRefresh();
       console.log('首页热门数据', err)
@@ -109,9 +111,19 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    this._getNowTypeCuisine();
-    this._getHotCuisine();
-    
+    try {
+      console.log(app.indexData)
+      this.setData({
+        nowCuisineList: app.indexData.nowCuisineList,
+        nowType: app.indexData.nowType,
+        pageNum: app.indexData.pageNum,
+        cuisineList: app.indexData.cuisineList
+      });
+    } catch (e) {
+      console.log(e)
+      this._getNowTypeCuisine();
+      this._getHotCuisine();
+    }
   },
 
   /**
@@ -139,7 +151,9 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   onUnload: function() {
-
+    this.setData({
+      kw: ''
+    })
   },
 
   /**

@@ -1,4 +1,9 @@
 // pages/cuisineTypeList/cuisineTypeList.js
+
+import {
+  flow_concat,
+  getImage
+} from '../../util/util.js'
 const app = getApp();
 Page({
 
@@ -34,22 +39,14 @@ Page({
       }
     }).then(res => {
       let data = res.result.data;
+      // 修改imageUrl
       data.forEach((elem, index) => {
-        data[index].img_url = `cloud://recipes.7265-recipes-1258010274/image/cuisine/image-${elem.id}.jpg`;
+        data[index].img_url = `${app.imageUrl}${elem.id}.jpg`;
       });
-      
-      let cuisineList = this.data.cuisineList;
-      let length = cuisineList.length;
-      if (length > 0) {
-        data.slice(0, data.length / 2).forEach((elem, index) => {
-          cuisineList.splice(length / 2 + index, 0, elem)
-        });
-        data.slice(data.length / 2).forEach((elem) => {
-          cuisineList.push(elem)
-        });
-      } else {
-        cuisineList = cuisineList.concat(data)
-      }
+
+      // 错位打散拼接数组
+      let cuisineList = flow_concat(this.data.cuisineList, data);
+      // 判断是否到末页
       if (data.length >= this.data.count) {
         this.setData({
           pageNum: ++this.data.pageNum
@@ -59,6 +56,7 @@ Page({
           listEnd: false
         })
       }
+      // 设置数据
       this.setData({
         cuisineList: cuisineList,
       })
@@ -69,21 +67,7 @@ Page({
       console.log('列表页数据', err)
     })
   },
-  // 为瀑布流打散数组
-  _scatter: function(data) {
-    let evenArr = [];
-    let oddArr = [];
-    let temp;
-    for (let index in data) {
-      temp = data[index];
-      if (index % 2 == 0) {
-        evenArr.push(temp)
-      } else {
-        oddArr.push(temp)
-      }
-    }
-    return evenArr.concat(oddArr);
-  },
+
   // 跳转到详情页
   _toCuisineDetail: function(e) {
     let cuisine_id = e.currentTarget.dataset.cuisine_id;

@@ -1,4 +1,7 @@
 // pages/board/board.js
+import {
+  flow_concat
+} from '../../util/util.js'
 const app = getApp();
 
 Page({
@@ -23,37 +26,31 @@ Page({
       }
     }).then(res => {
       let data = res.result.collectList.data;
+      // 修改图片路径
       data.forEach((elem, index) => {
-        data[index].cuisine.img_url = `cloud://recipes.7265-recipes-1258010274/image/cuisine/image-${elem.cuisine.id}.jpg`;
+        data[index].cuisine.img_url = `${app.imageUrl}${elem.cuisine.id}.jpg`;
       });
+      // 判断是否为第一页
       if (this.data.pageNum < 2) {
         this.setData({
           cuisineList: []
         });
         wx.stopPullDownRefresh();
       }
+      // 判断是否到末页
       if (data.length < this.data.count) {
         this.setData({
           pageNum: ++this.data.pageNum,
           listEnd: false
         });
       }
-      let cuisineList = this.data.cuisineList;
-      let length = cuisineList.length;
-      if (length > 0) {
-        data.slice(0, data.length / 2).forEach((elem, index) => {
-          cuisineList.splice(length / 2 + index, 0, elem)
-        });
-        data.slice(data.length / 2).forEach((elem) => {
-          cuisineList.push(elem)
-        });
-      } else {
-        cuisineList = cuisineList.concat(data)
-      }
-
+      // 错位打散拼接数组
+      let cuisineList = flow_concat(this.data.cuisineList, data);
+      // 设置数据
       this.setData({
         cuisineList: cuisineList
       });
+      // 没有数据
       if (cuisineList.length < 1) {
         this.setData({
           noData: true
@@ -63,6 +60,7 @@ Page({
     }).catch(err => {
       console.log('收藏数据', err)
     })
+
   },
   // 跳转到详情页
   _toCuisineDetail: function(e) {
@@ -71,21 +69,6 @@ Page({
     wx.navigateTo({
       url: `/pages/cuisineDetail/cuisineDetail?cuisine_id=${cuisine_id}`
     })
-  },
-  // 为瀑布流打散数组
-  _scatter: function (data) {
-    let evenArr = [];
-    let oddArr = [];
-    let temp;
-    for (let index in data) {
-      temp = data[index];
-      if (index % 2 == 0) {
-        evenArr.push(temp)
-      } else {
-        oddArr.push(temp)
-      }
-    }
-    return evenArr.concat(oddArr);
   },
   /**
    * 生命周期函数--监听页面加载

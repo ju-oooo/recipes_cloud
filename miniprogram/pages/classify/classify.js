@@ -1,5 +1,7 @@
 // pages/classify/classify.js
-
+import {
+  getImage
+} from '../../util/util.js'
 Page({
   data: {
     classifyList: null
@@ -13,9 +15,8 @@ Page({
       }
     }).then(res => {
       let data = res.result.data;
-      data.forEach((elem, index) => {
-        data[index].img_url = `cloud://recipes.7265-recipes-1258010274/image/cuisine/image-${elem.img_url}.jpg`;
-      });
+      // 修改imageUrl
+      data = getImage(data);
       this.setData({
         classifyList: data
       });

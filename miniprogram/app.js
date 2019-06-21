@@ -27,7 +27,8 @@ App({
     this.globalData = {
       userInfo: null
     }
-
+    this.indexData = {};
+    this.imageUrl = "cloud://recipes.7265-recipes-1258010274/image/cuisine/image-";
   }
 
 })

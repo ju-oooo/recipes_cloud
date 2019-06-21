@@ -1,7 +1,7 @@
 {
   "enablePullDownRefresh": true,
   "usingComponents": {
-    
+    "cuisine_classify": "../components/cuisine_classify/cuisine_classify"
   }
   
 }

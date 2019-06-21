@@ -14,12 +14,78 @@ Page({
     welcomeUrl: '../../images/welcome.jpg',
     counter: 3
   },
+  // 获取推荐类型
+  getRecommendType: function() {
+    let now = new Date().getHours();
+    if (now < 10) {
+      return '10007' //早
+    } else if (now < 16) {
+      return '10008' //中
+    } else {
+      return '10009' //晚
+    }
+  },
+  // 获取当前时间 推荐类型
+  _getNowTypeCuisine: function() {
+    let recommendTypeId = this.getRecommendType();
+    console.log(recommendTypeId)
+    wx.cloud.callFunction({
+      name: 'cuisine',
+      data: {
+        $url: 'getNow',
+        recommendTypeId: recommendTypeId,
+        pageNum: 1,
+        count: 2
+      }
+    }).then(res => {
+      let data = res.result;
+      let nowCuisineList = data.cuisineList.data;
+      nowCuisineList.forEach((elem, index) => {
+        nowCuisineList[index].img_url = `${app.imageUrl}${elem.id}.jpg`;
+      });
 
+      app.indexData.nowCuisineList = nowCuisineList
+      app.indexData.nowType = data.type.data[0]
+
+      wx.stopPullDownRefresh();
+      console.log('首页推荐类型', data)
+    }).catch(err => {
+      wx.stopPullDownRefresh();
+      console.log('首页推荐类型', err)
+    })
+  },
+  //获取热门菜品
+  _getHotCuisine: function() {
+
+    wx.cloud.callFunction({
+      name: 'cuisine',
+      data: {
+        $url: 'getHot',
+        pageNum: 1,
+        count: 20
+      }
+    }).then(res => {
+      let data = res.result.data;
+
+      data.forEach((elem, index) => {
+        data[index].img_url = `${app.imageUrl}${elem.id}.jpg`;
+      });
+      app.indexData.pageNum = 2;
+      app.indexData.cuisineList = data;
+
+      wx.stopPullDownRefresh();
+      console.log('首页热门数据', data)
+    }).catch(err => {
+      wx.stopPullDownRefresh();
+      console.log('首页热门数据', err)
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-   
+    this._getNowTypeCuisine();
+    this._getHotCuisine();
   },
 
   /**

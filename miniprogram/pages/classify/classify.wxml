@@ -1,11 +1,6 @@
 <!--pages/classify/classify.wxml-->
 
 <block wx:for="{{classifyList}}" wx:for-item="classify" wx:key="{{index}}">
-  <view class="dishes" data-classify_id='{{classify.id}}' bindtap='_toCuisineList'>
-    <image class="dishes-img" src="{{classify.img_url}}"></image>
-    <view class="dishes-title">
-      <text>{{classify.title}}</text>
-    </view>
-  </view>
+  <cuisine_classify class='classify-item' classify='{{classify}}' data-classify_id='{{classify.id}}' bindtap='_toCuisineList'></cuisine_classify>
 </block>
 <van-toast id="van-toast" />

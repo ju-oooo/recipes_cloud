@@ -1,4 +1,9 @@
 // miniprogram/pages/searchList/searchList.js
+import {
+  flow_concat,
+  getImage
+} from '../../util/util.js'
+const app = getApp();
 Page({
 
   /**
@@ -12,7 +17,6 @@ Page({
     cuisineList: [],
     listEnd: true
   },
-  // 沙拉
   // 搜索字段监听
   _onSearch_kw: function(e) {
     this.setData({
@@ -21,18 +25,22 @@ Page({
   },
   // 搜索
   _search: function() {
-    if (this.data.historyKW != this.data.kw) {
-      this.setData({
-        cuisineList: []
-      })
-    } 
+    // 关键词相同时退出
+    if (this.data.historyKW == this.data.kw) {
+      wx.showToast({
+        title: '请不要重复输入',
+        icon: 'none'
+      });
+      return;
+    }
+    // 关键词为空时退出
     if (this.data.kw == '') {
       wx.showToast({
         title: '请输入关键词',
         icon: 'none'
       });
       return;
-    }else {
+    } else {
       wx.showLoading({
         mask: true,
         title: '加载中...'
@@ -48,17 +56,24 @@ Page({
         }
       }).then(res => {
         let data = res.result.data;
+        // 修改图片路径
         data.forEach((elem, index) => {
-          data[index].img_url = `cloud://recipes.7265-recipes-1258010274/image/cuisine/image-${elem.id}.jpg`;
+          data[index].img_url = `${app.imageUrl}${elem.id}.jpg`;
         });
+        // 判断是否到末页
         if (data.length >= this.data.count) {
           this.setData({
             listEnd: false,
             pageNum: ++this.data.pageNum,
           });
         }
+        // 错位打散拼接数组
+        let cuisineList = flow_concat(this.data.cuisineList, data);
+
+        // 设置数据
         this.setData({
-          cuisineList: this.data.cuisineList.concat(data)
+          cuisineList: cuisineList,
+          historyKW: this.data.kw
         });
         wx.hideLoading();
         console.log('搜索页数据', data)
@@ -112,7 +127,7 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   onUnload: function() {
-
+    
   },
 
   /**
