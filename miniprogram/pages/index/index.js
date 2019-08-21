@@ -1,6 +1,6 @@
 // pages/index/index.js
+const util = require('../../utils/utils.js');
 Page({
-
   /**
    * 页面的初始数据
    */
@@ -13,19 +13,19 @@ Page({
     kw: ''
   },
   // 输入监听
-  _onSearch_kw: function(e) {
+  _onSearch_kw(e) {
     this.setData({
       kw: e.detail.value
     })
   },
   // 进入搜索页
-  _toSearch: function() {
+  _toSearch() {
     wx.navigateTo({
       url: `/pages/searchList/searchList?kw=${this.data.kw}`
     })
   },
   // 获取推荐类型
-  getRecommendType: function() {
+  getRecommendType() {
     let now = new Date().getHours();
     if (now < 10) {
       return '10007' //早
@@ -36,7 +36,7 @@ Page({
     }
   },
   // 获取当前时间 推荐类型
-  _getNowTypeCuisine: function() {
+  _getNowTypeCuisine() {
     let recommendTypeId = this.getRecommendType();
     console.log(recommendTypeId)
     wx.cloud.callFunction({
@@ -51,7 +51,7 @@ Page({
       let data = res.result;
       let nowCuisineList = data.cuisineList.data;
       nowCuisineList.forEach((elem, index) => {
-        nowCuisineList[index].img_url = `cloud://recipes.7265-recipes-1258010274/image/cuisine/image-${elem.id}.jpg`;
+        nowCuisineList[index].img_url = util._getImageUrl(elem.id);
       });
       this.setData({
         nowCuisineList: nowCuisineList,
@@ -65,8 +65,7 @@ Page({
     })
   },
   //获取热门菜品
-  _getHotCuisine: function() {
- 
+  _getHotCuisine() {
     wx.cloud.callFunction({
       name: 'cuisine',
       data: {
@@ -77,7 +76,7 @@ Page({
     }).then(res => {
       let data = res.result.data;
       data.forEach((elem, index) => {
-        data[index].img_url = `cloud://recipes.7265-recipes-1258010274/image/cuisine/image-${elem.id}.jpg`;
+        data[index].img_url = util._getImageUrl(elem.id);
       });
       this.setData({
         pageNum: ++this.data.pageNum,
@@ -91,7 +90,13 @@ Page({
     })
   },
   // 跳转到详情页
-  _toCuisineDetail: function(e) {
+  // _toView (e) {
+  //   let pageName = e.currentTarget.dataset.pagename;
+  //   let cuisine_id = e.currentTarget.dataset.cuisine_id;
+  //   console.log(cuisine_id)
+  //   util._navigateTo(pageName, { cuisine_id: cuisine_id });
+  // },
+  _toCuisineDetail(e) {
     let cuisine_id = e.currentTarget.dataset.cuisine_id;
     console.log(cuisine_id)
     wx.navigateTo({
@@ -99,7 +104,7 @@ Page({
     })
   },
   // 点击查看更多
-  _toCuisineList: function() {
+  _toCuisineList() {
     let classify_id = this.data.nowType.id;
     wx.navigateTo({
       url: `/pages/cuisineList/cuisineList?classify_id=${classify_id}`
@@ -108,7 +113,7 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function(options) {
+  onLoad(options) {
     this._getNowTypeCuisine();
     this._getHotCuisine();
     
@@ -117,35 +122,35 @@ Page({
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function() {
+  onReady() {
 
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function() {
+  onShow() {
 
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function() {
+  onHide() {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function() {
+  onUnload() {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function() {
+  onPullDownRefresh() {
     this.setData({
       cuisineList: [],
       nowCuisineList: [],
@@ -161,14 +166,14 @@ Page({
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function() {
+  onReachBottom() {
     this._getHotCuisine();
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function() {
+  onShareAppMessage() {
 
   }
 })
