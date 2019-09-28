@@ -1,0 +1,11 @@
+[
+  {
+    "name": "cuisine/getNow",
+    "value": {
+      "$url": "cuisine/getNow",
+      "recommendTypeId": "10008",
+      "pageNum": 1,
+      "count": 2
+    }
+  }
+]

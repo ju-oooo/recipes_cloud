@@ -14,7 +14,7 @@ exports.main = async(event, context) => {
     event
   });
   const wxContext = cloud.getWXContext();
-  // 添加进收藏
+  // 添加建议
   app.router('add', async(ctx, next) => {
     try {
       let params = ctx._req.event;
