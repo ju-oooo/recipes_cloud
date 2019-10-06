@@ -1,0 +1,26 @@
+<!--pages/components/cuisineList/index.wxml-->
+<wxs src="../../../wxs/util.wxs" module="util"></wxs>
+<view class='cuisine-list'>
+  <view class="cuisine-list-left">
+    <block wx:for="{{cuisineLeftList}}" wx:key="{{index}}">
+      <view class="cuisine fs-0" data-id='{{item._id}}' data-navigate="cuisineDetail" bindtap='_toView'>
+        <image mode='aspectFill' class="{{index%2!=0?'image-info':'image-info-o'}}" lazy-load src="{{util._getImageUrl(item.id)}}"></image>
+        <view class="cuisine-head">
+          <text class="cuisine-title">{{item.title}}</text>
+          <text class="sub-title">{{item.description}}</text>
+        </view>
+      </view>
+    </block>
+  </view>
+  <view class="cuisine-list-right">
+    <block wx:for="{{cuisineRightList}}" wx:key="{{index}}">
+      <view class="cuisine fs-0" data-id='{{item._id}}' data-navigate="cuisineDetail" bindtap='_toView'>
+        <image mode='aspectFill' class="{{index%2==0?'image-info':'image-info-o'}}" lazy-load src="{{util._getImageUrl(item.id)}}"></image>
+        <view class="cuisine-head">
+          <text class="cuisine-title">{{item.title}}</text>
+          <text class="sub-title">{{item.description}}</text>
+        </view>
+      </view>
+    </block>
+  </view>
+</view>

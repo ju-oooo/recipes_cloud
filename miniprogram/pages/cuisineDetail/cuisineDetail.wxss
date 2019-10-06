@@ -49,6 +49,10 @@
   letter-spacing: 2rpx;
 }
 
+.food-material-o {
+  background-color: #f1f2f3;
+}
+
 .cooking-step {
   padding: 0 10rpx;
   font-size: 25rpx;

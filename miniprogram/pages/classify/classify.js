@@ -1,29 +1,21 @@
 // pages/classify/classify.js
-
+const app = getApp();
+const api = require('../../utils/api.js');
+const util = require('../../utils/util.js');
+const validate = require('../../utils/validate.js');
 Page({
   data: {
     classifyList: null
   },
   // 根据类型获取热门菜品
   _getHotTypeCuisine: function() {
-    wx.cloud.callFunction({
-      name: 'cuisine',
-      data: {
-        $url: 'getType'
-      }
-    }).then(res => {
+    api._requestCloud('cuisine/getType').then(res => {
       let data = res.result.data;
-      data.forEach((elem, index) => {
-        data[index].img_url = `cloud://recipes.7265-recipes-1258010274/image/cuisine/image-${elem.img_url}.jpg`;
-      });
       this.setData({
         classifyList: data
       });
       wx.stopPullDownRefresh();
-      console.log('类型数据', data)
-    }).catch(err => {
-      console.log('类型数据', err)
-    })
+    });
   },
   // 跳转到列表页
   _toCuisineList: function(e) {

@@ -1,0 +1,12 @@
+<!--pages/components/choiceList/index.wxml-->
+<wxs src="../../../wxs/util.wxs" module="util"></wxs>
+<view class="recipes-choice">
+  <block wx:for="{{choiceList}}" wx:key="{{index}}">
+  <view class="choice-item-o">
+    <view class="choice-item" data-id='{{item._id}}' data-navigate="cuisineDetail" bindtap='_toView'>
+      <image mode='scaleToFill' class='choice-item-img' src="{{util._getImageUrl(item.id)}}"></image>
+      <text class='choice-item-title'>{{item.title}}</text>
+    </view>
+    </view>
+  </block>
+</view>

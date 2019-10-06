@@ -1,28 +1,5 @@
-.recipes-search {
-  margin: 20rpx auto;
-  height: 70rpx;
-  width: 90%;
-  background-color: #f7f7f7;
-  border-radius: 12rpx;
-  font-size: 30rpx;
-  display: flex;
-  justify-content: flex-start;
-}
-
-.search-icon {
-  line-height: 100rpx;
-  padding: 0 30rpx;
-}
-
-.search-input {
-  width: 550rpx;
-  height: 70rpx;
-  line-height: 100rpx;
-  padding-left: 40rpx;
-}
-
 .recipes-recommend {
-  width: 90%;
+  width: 95%;
   margin: 30rpx auto;
   height: 40rpx;
 }
@@ -31,7 +8,7 @@
   width: 10rpx;
   height: 30rpx;
   line-height: 30rpx;
-  background-color: #9FD55D;
+  background-color: #67c401;
   margin-right: 10rpx;
   float: left;
 }
@@ -50,32 +27,4 @@
   height: 30rpx;
   color: #999;
   font-size: 32rpx;
-}
-
-.recipes-details {
-  width: 95%;
-  margin: auto;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-}
-
-.details-item {
-  width: 50%;
-  box-sizing: border-box;
-  padding: 10rpx;
-}
-
-.recipes-choice {
-  width: 95%;
-  margin: auto;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-}
-
-.choice-item {
-  margin-bottom: 30rpx;
-  box-sizing: border-box;
-  padding: 10rpx;
 }

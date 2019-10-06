@@ -1,0 +1,7 @@
+// 获取图片地址
+function _getImageUrl(id) {
+  return 'https://7265-recipes-1258010274.tcb.qcloud.la/image/cuisine/image-' + id + '.jpg';
+}
+module.exports = {
+  _getImageUrl: _getImageUrl
+}

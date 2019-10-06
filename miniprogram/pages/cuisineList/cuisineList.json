@@ -1,6 +1,6 @@
 {
   "enablePullDownRefresh": true,
   "usingComponents": {
-    "cuisine_item": "../components/cuisine_item/cuisine_item"
+    "cuisine-list": "../components/cuisineList/index"
   }
 }

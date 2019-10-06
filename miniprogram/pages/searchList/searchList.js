@@ -1,4 +1,8 @@
 // miniprogram/pages/searchList/searchList.js
+const app = getApp();
+const api = require('../../utils/api.js');
+const util = require('../../utils/util.js');
+const validate = require('../../utils/validate.js');
 Page({
 
   /**
@@ -21,51 +25,28 @@ Page({
   },
   // 搜索
   _search: function() {
-    if (this.data.historyKW != this.data.kw) {
-      this.setData({
-        cuisineList: []
-      })
-    } 
     if (this.data.kw == '') {
-      wx.showToast({
-        title: '请输入关键词',
-        icon: 'none'
-      });
-      return;
-    }else {
-      wx.showLoading({
-        mask: true,
-        title: '加载中...'
-      })
-
-      wx.cloud.callFunction({
-        name: 'cuisine',
-        data: {
-          $url: 'search',
-          kw: this.data.kw,
-          pageNum: this.data.pageNum,
-          count: this.data.count
-        }
+      util._toast('请输入关键词');
+    } else {
+      util._loading('加载中...');
+      api._requestCloud('cuisine/search', {
+        kw: this.data.kw,
+        pageNum: this.data.pageNum,
+        count: this.data.count
       }).then(res => {
         let data = res.result.data;
-        data.forEach((elem, index) => {
-          data[index].img_url = `cloud://recipes.7265-recipes-1258010274/image/cuisine/image-${elem.id}.jpg`;
-        });
-        if (data.length >= this.data.count) {
+        if (data.length > 0) {
           this.setData({
             listEnd: false,
             pageNum: ++this.data.pageNum,
           });
         }
+        let cuisineList = this.data.historyKW != this.data.kw ? [] : this.data.cuisineList;
         this.setData({
-          cuisineList: this.data.cuisineList.concat(data)
+          cuisineList: cuisineList.concat(data)
         });
-        wx.hideLoading();
-        console.log('搜索页数据', data)
-      }).catch(err => {
-        wx.hideLoading();
-        console.log('搜索页数据', err)
-      })
+        wx.stopPullDownRefresh();
+      });
     }
   },
   // 跳转到详情页
@@ -81,7 +62,8 @@ Page({
    */
   onLoad: function(options) {
     this.setData({
-      kw: options.kw
+      kw: options.kw,
+      historyKW: options.kw
     })
     this._search();
   },
@@ -127,10 +109,7 @@ Page({
    */
   onReachBottom: function() {
     if (this.data.listEnd) {
-      wx.showToast({
-        title: '没有更多数据了',
-        icon: 'none'
-      });
+      util._toast('没有更多数据了');
       return;
     } else {
       this._search();

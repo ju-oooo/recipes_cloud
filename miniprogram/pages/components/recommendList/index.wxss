@@ -1,0 +1,32 @@
+/* pages/components/recommendList/index.wxss */
+
+.recipes-recommend {
+  width: 95%;
+  margin: auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+
+.recommend-item {
+  width: 50%;
+  box-sizing: border-box;
+  padding: 10rpx;
+}
+
+.recommend-item-img {
+  width: 100%;
+  border-radius: 10rpx;
+  height: 260rpx;
+  overflow: hidden;
+}
+
+.recommend-item-title {
+  font-size: 32rpx;
+  color: #000;
+  width: 100%;
+  display: inline-block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

@@ -1,19 +1,20 @@
-<view>
-  <image mode="widthFix" class="image-info" src="{{details.img_url}}"></image>
+<wxs src="../../wxs/util.wxs" module="util"></wxs>
+<view wx:if="{{details.id}}">
+  <image mode="widthFix" class="image-info" src="{{util._getImageUrl(details.id)}}"></image>
   <view class="details-head">
     <view class='details-tit'>
       <text class="details-title">{{details.title}}</text>
-      <image src="{{star?'../../images/shoucang_o.png':'../../images/shoucang.png'}}" class="details-star" bindtap='_changeCollect'></image>
+      <image src="{{star?'../../images/sc-o.png':'../../images/sc.png'}}" class="details-star" bindtap='_changeCollect'></image>
     </view>
     <text class="sub-title">{{details.description}}</text>
     <text class='dotted'></text>
     <text class="material">食材</text>
-    <block wx:for="{{details.food_material}}" wx:for-item="food_material" wx:key="index">
-      <text class="food-material">{{food_material}}</text>
+    <block wx:for="{{details.food_material}}" wx:for-item="food_material" wx:key="{{index}}">
+      <text class="food-material {{index%2?'food-material-o':''}}">{{food_material}}</text>
     </block>
     <text class='dotted'></text>
     <text class="material">烹饪步骤</text>
-    <block wx:for="{{details.cooking_step}}" wx:for-item="cooking_step" wx:key="index">
+    <block wx:for="{{details.cooking_step}}" wx:for-item="cooking_step" wx:key="{{index}}">
       <text class="cooking-step">{{index+1+"/"+details.cooking_step.length+" "}}{{cooking_step}}</text>
     </block>
   </view>

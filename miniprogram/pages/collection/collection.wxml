@@ -1,9 +1,7 @@
-<view wx:if="{{noData}}" class='collection-none'>
+<view wx:if='{{cuisineList.length > 0}}'>
+  <cuisine-list cuisine-list="{{cuisineList}}" />
+</view>
+<view wx:else class='collection-none'>
   <image class='none-img' lazy-load src='cloud://recipes.7265-recipes/image/index/zanwushuju.png'></image>
   <text class='none-title'>暂无数据</text>
-</view>
-<view wx:else class='collection-list'>
-  <block wx:for="{{cuisineList}}" wx:for-item="cuisine" wx:key="index">
-    <cuisine_item class='collection-item' index="{{index}}" cuisine="{{cuisine.cuisine}}" data-cuisine_id='{{cuisine.cuisine._id}}' bindtap='_toCuisineDetail'></cuisine_item>
-  </block>
 </view>

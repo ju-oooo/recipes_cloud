@@ -1,6 +1,8 @@
 // pages/board/board.js
 const app = getApp();
-
+const api = require('../../utils/api.js');
+const util = require('../../utils/util.js');
+const validate = require('../../utils/validate.js');
 Page({
   /**
    * 页面的初始数据
@@ -12,85 +14,42 @@ Page({
     listEnd: true
   },
   // 加载收藏数据
-  _getCuisineList: function() {
-    wx.cloud.callFunction({
-      name: 'collect',
-      data: {
-        $url: 'get',
-        pageNum: this.data.pageNum,
-        count: this.data.count,
-        noData: false
-      }
+  _getCuisineList() {
+    util._loading("加载中");
+    api._requestCloud('collect/get', {
+      pageNum: this.data.pageNum,
+      count: this.data.count,
+      noData: false
     }).then(res => {
       let data = res.result.collectList.data;
-      data.forEach((elem, index) => {
-        data[index].cuisine.img_url = `cloud://recipes.7265-recipes-1258010274/image/cuisine/image-${elem.cuisine.id}.jpg`;
-      });
-      if (this.data.pageNum < 2) {
+      let cuisineList = this.data.cuisineList;
+      if (data.length > 0) {
         this.setData({
-          cuisineList: []
-        });
-        wx.stopPullDownRefresh();
-      }
-      if (data.length < this.data.count) {
+          cuisineList: cuisineList.concat(data),
+          noData: true
+        })
+      } else {
         this.setData({
           pageNum: ++this.data.pageNum,
           listEnd: false
         });
       }
-      let cuisineList = this.data.cuisineList;
-      let length = cuisineList.length;
-      if (length > 0) {
-        data.slice(0, data.length / 2).forEach((elem, index) => {
-          cuisineList.splice(length / 2 + index, 0, elem)
-        });
-        data.slice(data.length / 2).forEach((elem) => {
-          cuisineList.push(elem)
-        });
-      } else {
-        cuisineList = cuisineList.concat(data)
-      }
-
-      this.setData({
-        cuisineList: cuisineList
-      });
-      if (cuisineList.length < 1) {
-        this.setData({
-          noData: true
-        })
-      }
-      console.log('收藏数据', data)
-    }).catch(err => {
-      console.log('收藏数据', err)
-    })
+      wx.stopPullDownRefresh();
+    });
   },
   // 跳转到详情页
-  _toCuisineDetail: function(e) {
+  _toCuisineDetail(e) {
     let cuisine_id = e.currentTarget.dataset.cuisine_id;
     console.log(cuisine_id)
     wx.navigateTo({
       url: `/pages/cuisineDetail/cuisineDetail?cuisine_id=${cuisine_id}`
     })
   },
-  // 为瀑布流打散数组
-  _scatter: function (data) {
-    let evenArr = [];
-    let oddArr = [];
-    let temp;
-    for (let index in data) {
-      temp = data[index];
-      if (index % 2 == 0) {
-        evenArr.push(temp)
-      } else {
-        oddArr.push(temp)
-      }
-    }
-    return evenArr.concat(oddArr);
-  },
+
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function() {
+  onLoad() {
     if (app.globalData.userInfo) {
       this.setData({
         pageNum: 1,
@@ -98,61 +57,60 @@ Page({
       });
       this._getCuisineList();
     } else {
-      wx.showToast({
-        title: '请登录',
-        icon: 'none'
-      })
+      util._toast('请登录');
     }
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function() {
+  onReady() {
 
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function() {
+  onShow() {
 
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function() {
+  onHide() {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function() {
+  onUnload() {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function() {
-    this.setData({
-      pageNum: 1,
-      listEnd: true,
-    });
-    this._getCuisineList();
+  onPullDownRefresh() {
+    if (app.globalData.userInfo) {
+      this.setData({
+        pageNum: 1,
+        listEnd: true,
+        cuisineList: []
+      });
+      this._getCuisineList();
+    } else {
+      util._toast('请登录');
+    }
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function() {
+  onReachBottom() {
     if (this.data.listEnd) {
-      wx.showToast({
-        title: '没有更多数据了',
-        icon: 'none'
-      });
+      util._toast('没有更多数据了');
       return;
     } else {
       this._getCuisineList();
@@ -162,7 +120,7 @@ Page({
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function() {
+  onShareAppMessage() {
 
   }
 })

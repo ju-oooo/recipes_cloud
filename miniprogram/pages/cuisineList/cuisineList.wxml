@@ -1,5 +1,3 @@
-<view class='cuisine-list'>
-  <block wx:for="{{cuisineList}}" wx:for-item="cuisine" wx:key="index">
-    <cuisine_item index="{{index}}" cuisine="{{cuisine}}" data-cuisine_id='{{cuisine._id}}' bindtap='_toCuisineDetail'></cuisine_item>
-  </block>
+<view wx:if='{{cuisineList.length > 0}}'>
+  <cuisine-list cuisine-list="{{cuisineList}}"/>
 </view>

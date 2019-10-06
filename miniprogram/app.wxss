@@ -1,0 +1,22 @@
+.recipes-search {
+  height: 70rpx;
+  width: 95%;
+  background-color: #f7f7f7;
+  border-radius: 12rpx;
+  font-size: 30rpx;
+  display: flex;
+  margin: 20rpx auto;
+  justify-content: flex-start;
+}
+
+.search-icon {
+  line-height: 100rpx;
+  padding: 0 30rpx;
+}
+
+.search-input {
+  width: 95%;
+  height: 70rpx;
+  line-height: 100rpx;
+  padding-left: 20rpx;
+}

@@ -1,7 +1,3 @@
-// 获取图片链接
-const _getImageUrl = (id) => {
-  return `cloud://recipes.7265-recipes-1258010274/image/cuisine/image-${id}.jpg`;
-}
 // 云函数请求封装
 const _requestCloud = (url, param = {}) => {
   param.$url = url;
@@ -10,17 +6,16 @@ const _requestCloud = (url, param = {}) => {
       name: 'recipes',
       data: param
     }).then(res => {
-      console.log(123, res)
+      console.log(123, url, res)
       wx.hideLoading();
       resolve(res)
     }).catch(err => {
-      console.log(123, err)
+      console.log(456, err)
       wx.hideLoading();
       reject(err)
     })
-  })
+  });
 }
 export {
-  _requestCloud,
-  _getImageUrl
+  _requestCloud
 }

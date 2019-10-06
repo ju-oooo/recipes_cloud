@@ -1,0 +1,10 @@
+<!--pages/components/recommendList/index.wxml-->
+<wxs src="../../../wxs/util.wxs" module="util"></wxs>
+<view class="recipes-recommend">
+  <block wx:for="{{recommendList}}" wx:key="{{index}}">
+    <view class="recommend-item" data-id='{{item._id}}' data-navigate="cuisineDetail" bindtap='_toView'>
+      <image mode='scaleToFill' class='recommend-item-img' src="{{util._getImageUrl(item.id)}}"></image>
+      <text class='recommend-item-title'>{{item.title}}</text>
+    </view>
+  </block>
+</view>

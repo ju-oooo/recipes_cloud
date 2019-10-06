@@ -1,7 +1,7 @@
 {
   "enablePullDownRefresh": true,
   "usingComponents": {
-    "cuisine_recommend": "../components/cuisine_recommend/cuisine_recommend",
-    "cuisine_choice": "../components/cuisine_choice/cuisine_choice"
+    "recommend-list": "../components/recommendList/index",
+    "choice-list": "../components/choiceList/index"
   }
 }

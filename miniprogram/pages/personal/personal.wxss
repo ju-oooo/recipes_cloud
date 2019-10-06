@@ -14,27 +14,32 @@ page {
 
 .btn-login {
   font-size: 44rpx;
-  color: #00ae66;
+  color: #67c401;
+  background-color: #fff;
+  border: 1rpx solid #fefefe;
 }
-.info{
+
+.info {
   display: flex;
   justify-content: flex-start;
 }
+
 .info image {
-  width: 140rpx;
-  height: 140rpx;
-  border-radius: 140rpx;
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: 20%;
 }
 
 .info-right {
   padding-left: 30rpx;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
+  height: 120rpx;
 }
 
-.info-right text {
-  padding: 15rpx;
+.info-right .info-name {
+  font-weight: bold;
 }
 
 .info-right .info-country {
@@ -59,5 +64,11 @@ page {
   display: block;
   height: 100rpx;
   line-height: 100rpx;
-  margin-top: 10rpx;
+}
+
+.mt-30 {
+  margin-top: 30rpx;
+}
+.bb-1 {
+  border-bottom: 1rpx solid #f5f5f5;
 }

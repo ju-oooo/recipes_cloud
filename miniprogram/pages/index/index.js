@@ -8,9 +8,9 @@ Page({
    * 页面的初始数据
    */
   data: {
-    cuisineList: [],
-    nowCuisineList: [],
-    nowType: [],
+    choiceList: [],
+    recommendList: [],
+    nowType: {},
     pageNum: 1,
     count: 20,
     kw: ''
@@ -23,9 +23,16 @@ Page({
   },
   // 进入搜索页
   _toSearch() {
-    util._navigateTo('searchList', {
-      kw: this.data.kw
-    });
+    if (this.data.kw == '') {
+      util._toast('请输入关键词');
+    } else {
+      util._navigateTo('searchList', {
+        kw: this.data.kw
+      });
+      this.setData({
+        kw: ''
+      })
+    }
   },
   // 获取推荐类型
   getRecommendType() {
@@ -47,13 +54,9 @@ Page({
       count: 2
     }).then(res => {
       let data = res.result;
-      let nowCuisineList = data.cuisineList.data;
-      nowCuisineList.forEach((elem, index) => {
-        nowCuisineList[index].img_url = api._getImageUrl(elem.id);
-      });
       this.setData({
-        nowCuisineList: nowCuisineList,
-        nowType: data.type.data[0]
+        recommendList: data.recommendList,
+        nowType: data.type
       });
       wx.stopPullDownRefresh();
     });
@@ -65,30 +68,23 @@ Page({
       count: this.data.count
     }).then(res => {
       let data = res.result.data;
-      data.forEach((elem, index) => {
-        data[index].img_url = api._getImageUrl(elem.id);
-      });
+      let choiceList = this.data.choiceList;
       this.setData({
         pageNum: ++this.data.pageNum,
-        cuisineList: this.data.cuisineList.concat(data)
+        choiceList: choiceList.concat(data)
       });
       wx.stopPullDownRefresh();
     });
   },
-  // 跳转到详情页
-  _toCuisineDetail(e) {
-    let cuisine_id = e.currentTarget.dataset.cuisine_id;
-    util._navigateTo('cuisineDetail', {
-      cuisine_id: cuisine_id
+  // 页面跳转
+  _toView(e) {
+    let navigatePath = e.currentTarget.dataset.navigate;
+    let id = e.currentTarget.dataset.id;
+    wx.navigateTo({
+      url: `../${navigatePath}/${navigatePath}?id=${id}`
     });
   },
-  // 点击查看更多
-  _toCuisineList() {
-    let classify_id = this.data.nowType.id;
-    util._navigateTo('cuisineList', {
-      classify_id: classify_id
-    });
-  },
+
   /**
    * 生命周期函数--监听页面加载
    */
@@ -131,7 +127,7 @@ Page({
   onPullDownRefresh() {
     this.setData({
       cuisineList: [],
-      nowCuisineList: [],
+      recommendList: [],
       nowType: [],
       pageNum: 1,
       count: 20

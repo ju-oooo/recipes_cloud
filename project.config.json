@@ -4,6 +4,7 @@
 	"setting": {
 		"urlCheck": false,
 		"es6": true,
+		"enhance": true,
 		"postcss": true,
 		"minified": true,
 		"newFeature": true,
@@ -22,7 +23,7 @@
 	},
 	"appid": "wx0d52a2b5f749c65f",
 	"projectname": "recipes_cloud",
-	"libVersion": "2.4.3",
+	"libVersion": "2.6.1",
 	"simulatorType": "wechat",
 	"simulatorPluginLibVersion": {},
 	"cloudfunctionTemplateRoot": "cloudfunctionTemplate",
@@ -43,7 +44,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 2,
+			"current": 3,
 			"list": [
 				{
 					"id": -1,
@@ -63,6 +64,13 @@
 					"id": -1,
 					"name": "pages/cropper/cropper",
 					"pathName": "pages/cropper/cropper",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/classify/classify",
+					"pathName": "pages/classify/classify",
 					"scene": null
 				}
 			]

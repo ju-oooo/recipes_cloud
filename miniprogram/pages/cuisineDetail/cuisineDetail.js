@@ -1,6 +1,8 @@
 // pages/details/details.js
-
 const app = getApp();
+const api = require('../../utils/api.js');
+const util = require('../../utils/util.js');
+const validate = require('../../utils/validate.js');
 Page({
   /**
    * 页面的初始数据
@@ -11,56 +13,41 @@ Page({
     cuisine_id: 0
   },
   // 获取详情页数据
-  _getCuisineDetails: function(cuisine_id, userId) {
-     wx.cloud.callFunction({
-      name: 'cuisine',
-      data: {
-        $url: 'getDeatil',
-        cuisine_id
-      }
+  _getCuisineDetails: function(cuisine_id = this.data.cuisine_id) {
+    api._requestCloud('cuisine/getDeatil', {
+      cuisine_id: cuisine_id
     }).then(res => {
-      console.log(res)
       let details = res.result.detail;
-      details.img_url = `cloud://recipes.7265-recipes-1258010274/image/cuisine/image-${details.id}.jpg`;
       details.food_material = details.food_material.split("#");
       details.cooking_step = details.cooking_step.split("#");
       this.setData({
         details: details
       })
       // 检测是否存在于我的收藏
-      if (res.result.star) {
+      if (res.result.star && app.globalData.userInfo) {
         this.setData({
           'star': res.result.star,
         })
       }
       wx.stopPullDownRefresh();
-      console.log('详情页数据', details)
-    }).catch(err => {
-      wx.stopPullDownRefresh();
-      console.log('详情页数据', err)
-    })
+    });
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(params) {
     this.setData({
-      cuisine_id: params.cuisine_id
+      cuisine_id: params.id
+    }, () => {
+      this._getCuisineDetails();
     });
-    if (!app.globalData.userInfo) {
-      this._getCuisineDetails(this.data.cuisine_id, null);
-    } else {
-      this._getCuisineDetails(this.data.cuisine_id, app.globalData.userInfo.id);
-    }
+
   },
 
   // 改变收藏
   _changeCollect: function() {
     if (!app.globalData.userInfo) {
-      wx.showToast({
-        title: '请登录',
-        icon: 'none'
-      });
+      util._toast('请登录');
       return;
     }
     let url, message;
@@ -71,31 +58,14 @@ Page({
       url = 'remove';
       message = "取消"
     }
-
-    // wx.showLoading({
-    //   mask: true,
-    //   title: '加载中...'
-    // })
-    wx.cloud.callFunction({
-      name: 'collect',
-      data: {
-        $url: url,
-        cuisine_id: this.data.details._id
-      }
+    api._requestCloud(`collect/${url}`, {
+      cuisine_id: this.data.details._id
     }).then(res => {
       this.setData({
         'star': !this.data.star,
-      })
-      // wx.hideLoading();
-      wx.showToast({
-        title: message+'成功',
-        icon:"none"
-      })
-      console.log(res)
-    }).catch(err => {
-      // wx.hideLoading();
-      console.log(err)
-    })
+      });
+      util._toast(`${message}成功`);
+    });
   },
   /**
    * 生命周期函数--监听页面初次渲染完成
@@ -129,11 +99,7 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function() {
-    if (!app.globalData.userInfo) {
-      this._getCuisineDetails(this.data.cuisine_id, null);
-    } else {
-      this._getCuisineDetails(this.data.cuisine_id, app.globalData.userInfo.id);
-    }
+    this._getCuisineDetails();
   },
 
   /**

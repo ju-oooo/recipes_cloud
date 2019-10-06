@@ -1,5 +1,9 @@
 // pages/cuisineTypeList/cuisineTypeList.js
 const app = getApp();
+const api = require('../../utils/api.js');
+const util = require('../../utils/util.js');
+const validate = require('../../utils/validate.js');
+
 Page({
 
   /**
@@ -16,42 +20,25 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function(params) {
+  onLoad: function(options) {
     this.setData({
-      classify_id: params.classify_id
+      classify_id: options.id
+    }, () => {
+      this._getCuisineList();
     });
-    this._getCuisineList();
   },
   // 获取列表页数据
-  _getCuisineList: function() {
-    wx.cloud.callFunction({
-      name: 'cuisine',
-      data: {
-        $url: 'getListByType',
-        typeId: this.data.classify_id,
-        pageNum: this.data.pageNum,
-        count: this.data.count,
-      }
+  _getCuisineList(typeId = this.data.classify_id) {
+    api._requestCloud('cuisine/getListByType', {
+      typeId: typeId,
+      pageNum: this.data.pageNum,
+      count: this.data.count
     }).then(res => {
       let data = res.result.data;
-      data.forEach((elem, index) => {
-        data[index].img_url = `cloud://recipes.7265-recipes-1258010274/image/cuisine/image-${elem.id}.jpg`;
-      });
-      
-      let cuisineList = this.data.cuisineList;
-      let length = cuisineList.length;
-      if (length > 0) {
-        data.slice(0, data.length / 2).forEach((elem, index) => {
-          cuisineList.splice(length / 2 + index, 0, elem)
-        });
-        data.slice(data.length / 2).forEach((elem) => {
-          cuisineList.push(elem)
-        });
-      } else {
-        cuisineList = cuisineList.concat(data)
-      }
       if (data.length >= this.data.count) {
+        let cuisineList = this.data.cuisineList;
         this.setData({
+          cuisineList: cuisineList.concat(data),
           pageNum: ++this.data.pageNum
         })
       } else {
@@ -59,38 +46,8 @@ Page({
           listEnd: false
         })
       }
-      this.setData({
-        cuisineList: cuisineList,
-      })
       wx.stopPullDownRefresh();
-      console.log('列表页数据', data)
-    }).catch(err => {
-      wx.stopPullDownRefresh();
-      console.log('列表页数据', err)
-    })
-  },
-  // 为瀑布流打散数组
-  _scatter: function(data) {
-    let evenArr = [];
-    let oddArr = [];
-    let temp;
-    for (let index in data) {
-      temp = data[index];
-      if (index % 2 == 0) {
-        evenArr.push(temp)
-      } else {
-        oddArr.push(temp)
-      }
-    }
-    return evenArr.concat(oddArr);
-  },
-  // 跳转到详情页
-  _toCuisineDetail: function(e) {
-    let cuisine_id = e.currentTarget.dataset.cuisine_id;
-    console.log(cuisine_id)
-    wx.navigateTo({
-      url: `/pages/cuisineDetail/cuisineDetail?cuisine_id=${cuisine_id}`
-    })
+    });
   },
   /**
    * 生命周期函数--监听页面初次渲染完成
@@ -138,10 +95,7 @@ Page({
     if (this.data.listEnd) {
       this._getCuisineList();
     } else {
-      wx.showToast({
-        title: '没有更多数据了',
-        icon: 'none'
-      })
+      util._toast('没有更多数据了');
     }
   },
 

@@ -1,0 +1,12 @@
+<!--pages/components/classifyList/index.wxml-->
+<wxs src="../../../wxs/util.wxs" module="util"></wxs>
+<view class="classify-list">
+  <block wx:for="{{classifyList}}" wx:key="{{index}}">
+    <view class="classify" data-id='{{item.id}}' data-navigate="cuisineList" bindtap='_toView'>
+      <image class="classify-img" src="{{util._getImageUrl(item.imgId)}}"></image>
+      <view class="classify-title">
+        <text>{{item.title}}</text>
+      </view>
+    </view>
+  </block>
+</view>

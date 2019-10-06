@@ -25,6 +25,13 @@ Page({
       app.globalData.userInfo = e.detail.userInfo;
     }
   },
+  // 页面跳转
+  _toView(e) {
+    let navigatePath = e.currentTarget.dataset.navigate;
+    wx.navigateTo({
+      url: `../${navigatePath}/${navigatePath}`
+    });
+  },
   /**
    * 生命周期函数--监听页面加载
    */

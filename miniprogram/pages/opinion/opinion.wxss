@@ -27,5 +27,5 @@
   margin: 0 30rpx !important;
   font-size: 38rpx;
   color: #fff;
-  background-color: #67c401;
+  background-color: #67C401;
 }

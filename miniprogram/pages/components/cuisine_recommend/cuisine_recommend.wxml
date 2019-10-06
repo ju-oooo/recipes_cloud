@@ -1,4 +1,0 @@
-<view class="recommend-item">
-  <image mode='center' class='recommend-item-img' src="{{nowCuisine.img_url}}"></image>
-  <text class='recommend-item-title'>{{nowCuisine.title}}</text>
-</view>

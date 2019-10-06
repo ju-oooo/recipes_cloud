@@ -1,8 +1,9 @@
 {
   "pages": [
-    "pages/index/index",
     "pages/welcome/welcome",
+    "pages/index/index",
     "pages/classify/classify",
+    "pages/socialCircle/socialCircle",
     "pages/collection/collection",
     "pages/regarding/regarding",
     "pages/copyright/copyright",
@@ -21,31 +22,31 @@
   },
   "tabBar": {
     "color": "#000000",
-    "selectedColor": "#87DE47",
+    "selectedColor": "#67c401",
     "list": [
       {
         "pagePath": "pages/index/index",
         "text": "首页",
-        "iconPath": "images/zhuye.png",
-        "selectedIconPath": "images/zhuye_o.png"
+        "iconPath": "images/sy.png",
+        "selectedIconPath": "images/sy-o.png"
       },
       {
         "pagePath": "pages/classify/classify",
         "text": "分类",
-        "iconPath": "images/fenlei.png",
-        "selectedIconPath": "images/fenlei_o.png"
+        "iconPath": "images/fl.png",
+        "selectedIconPath": "images/fl-o.png"
       },
       {
-        "pagePath": "pages/collection/collection",
-        "text": "收藏",
-        "iconPath": "images/shoucangjia.png",
-        "selectedIconPath": "images/shoucangjia_o.png"
+        "pagePath": "pages/socialCircle/socialCircle",
+        "text": "圈子",
+        "iconPath": "images/qz.png",
+        "selectedIconPath": "images/qz-o.png"
       },
       {
         "pagePath": "pages/personal/personal",
         "text": "我的",
-        "iconPath": "images/wode.png",
-        "selectedIconPath": "images/wode_o.png"
+        "iconPath": "images/wd.png",
+        "selectedIconPath": "images/wd-o.png"
       }
     ]
   },
