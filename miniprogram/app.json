@@ -36,12 +36,7 @@
         "iconPath": "images/fl.png",
         "selectedIconPath": "images/fl-o.png"
       },
-      {
-        "pagePath": "pages/socialCircle/socialCircle",
-        "text": "圈子",
-        "iconPath": "images/qz.png",
-        "selectedIconPath": "images/qz-o.png"
-      },
+    
       {
         "pagePath": "pages/personal/personal",
         "text": "我的",

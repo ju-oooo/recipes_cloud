@@ -31,3 +31,9 @@ App({
   }
 
 })
+// {
+//   "pagePath": "pages/socialCircle/socialCircle",
+//     "text": "圈子",
+//       "iconPath": "images/qz.png",
+//         "selectedIconPath": "images/qz-o.png"
+// },
